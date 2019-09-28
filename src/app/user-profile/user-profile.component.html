@@ -1,6 +1,7 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
+            <!-- Cuerpo del registro de la Persona -->
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-danger">
@@ -10,31 +11,36 @@
                     <div class="card-body">
                         <form>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Company (disabled)" disabled>
+                                        <input matInput placeholder="Primer Nombre" type="text">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Username">
+                                        <input matInput placeholder="Segundo Nombre" type="text">
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Email address" type="email">
+                                        <input matInput placeholder="Primer Apellido" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Segundo Apellido" type="text">
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Fist Name" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Last Name" type="text">
+                                <div class="col-md-3">
+                                    <mat-form-field>
+                                        <mat-label>Género</mat-label>
+                                        <mat-select>
+                                           <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                {{food.viewValue}}
+                                            </mat-option>-->
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -85,6 +91,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Cuerpo del registro del usuario -->
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-header-danger">
