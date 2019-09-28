@@ -1,5 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
+        <!-- Registrar Personas -->
         <div class="row">
             <!-- Cuerpo del registro de la Persona -->
             <div class="col-md-12">
@@ -112,14 +113,15 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
-                            </button>
+                            <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                            </button>-->
                             <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Registrar Usuarios -->
         <div class="row">
             <!-- Cuerpo del registro del usuario -->
             <div class="col-md-12">
@@ -137,18 +139,62 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Contraseña" type="text">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Verificar Contraseña" type="text">
+                                    <mat-form-field>
+                                        <input matInput placeholder="Enter your password" [type]="hide2 ? 'password' : 'text'">
+                                        <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                                            <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Verificar Disponibilidad
-                            </button>
+                            <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Verificar Disponibilidad
+                            </button>-->
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Asociar a Sucursales -->
+        <div class="row">
+            <!-- Cuerpo del registro del usuario -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Registrar Usuario</h4>
+                        <p class="card-category">Recuerde que todos los datos son obligatorios.</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Asociar a Cargos -->
+        <div class="row">
+            <!-- Cuerpo del registro del usuario -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Registrar Usuario</h4>
+                        <p class="card-category">Recuerde que todos los datos son obligatorios.</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                            </div>
                             <div class="clearfix"></div>
                         </form>
                     </div>

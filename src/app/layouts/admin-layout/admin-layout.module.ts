@@ -22,6 +22,7 @@ import {
 } from '@angular/material';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
 @NgModule({
     imports: [
         CommonModule,
@@ -35,7 +36,8 @@ import {MatNativeDateModule} from '@angular/material/core';
         MatSelectModule,
         MatTooltipModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatIconModule
     ],
     providers: [
         MatDatepickerModule,
