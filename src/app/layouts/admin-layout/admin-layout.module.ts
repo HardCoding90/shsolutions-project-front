@@ -23,6 +23,7 @@ import {
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
     imports: [
         CommonModule,
@@ -37,7 +38,8 @@ import {MatIconModule} from '@angular/material/icon';
         MatTooltipModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatIconModule
+        MatIconModule,
+        MatCheckboxModule
     ],
     providers: [
         MatDatepickerModule,
