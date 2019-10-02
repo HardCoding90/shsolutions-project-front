@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+}
+
+.mat-row:hover {
+    background-color: #f44336;
+}
+
+.principal-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}

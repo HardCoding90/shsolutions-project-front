@@ -25,6 +25,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
     imports: [
         CommonModule,
@@ -41,7 +43,9 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatNativeDateModule,
         MatIconModule,
         MatCheckboxModule,
-        MatTabsModule
+        MatTabsModule,
+        MatPaginatorModule,
+        MatTableModule
     ],
     providers: [
         MatDatepickerModule,
