@@ -1,221 +1,267 @@
 <div class="main-content">
     <div class="container-fluid">
-        <!-- Registrar Personas -->
-        <div class="row">
-            <!-- Cuerpo del registro de la Persona -->
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Persona</h4>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <!-- Nombre -->
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Primer Nombre" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Segundo Nombre" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Primer Apellido" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-3">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Segundo Apellido" type="text">
-                                    </mat-form-field>
-                                </div>
+        <mat-tab-group>
+            <!-- Registrar Persona-->
+            <mat-tab label="Registrar">
+                <!-- Registrar Personas -->
+                <div class="row">
+                    <!-- Cuerpo del registro de la Persona -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Persona</h4>
                             </div>
-                            <!-- Fecha Nacimiento y Genero -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field color="accent">
-                                        <mat-label>Fecha Nacimiento</mat-label>
-                                        <input matInput [matDatepicker]="picker1">
-                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker1></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field>
-                                        <mat-label>Género</mat-label>
-                                        <mat-select>
-                                            <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                 {{food.viewValue}}
-                                             </mat-option>-->
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Primer Nombre" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Segundo Nombre" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Primer Apellido" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Segundo Apellido" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <mat-form-field color="accent">
+                                                <mat-label>Fecha Nacimiento</mat-label>
+                                                <input matInput [matDatepicker]="picker1">
+                                                <mat-datepicker-toggle matSuffix
+                                                                       [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <mat-form-field>
+                                                <mat-label>Género</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <mat-form-field>
+                                                <mat-label>Tipo Documento</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Número Documento" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                                    </button>-->
+                                    <div class="clearfix"></div>
+                                </form>
                             </div>
-                            <!-- Documento -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <mat-form-field>
-                                        <mat-label>Tipo Documento</mat-label>
-                                        <mat-select>
-                                            <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                 {{food.viewValue}}
-                                             </mat-option>-->
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Número Documento" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
-                            </button>-->
-                            <div class="clearfix"></div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- Registrar Datos de contacto -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Datos de Contacto</h4>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Email" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Teléfono Fijo" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Celular" type="text">
-                                    </mat-form-field>
-                                </div>
+                <!-- Registrar Datos de contacto -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Datos de Contacto</h4>
                             </div>
-                            <div class="clearfix"></div>
-                        </form>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Email" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Teléfono Fijo" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Celular" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- Registrar Direcciones -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Direccion</h4>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <!-- Dirección -->
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <mat-form-field>
-                                        <mat-label>País</mat-label>
-                                        <mat-select>
-                                            <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                 {{food.viewValue}}
-                                             </mat-option>-->
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field>
-                                        <mat-label>Departamento</mat-label>
-                                        <mat-select>
-                                            <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                 {{food.viewValue}}
-                                             </mat-option>-->
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field>
-                                        <mat-label>Municipio</mat-label>
-                                        <mat-select>
-                                            <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                 {{food.viewValue}}
-                                             </mat-option>-->
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
+                <!-- Registrar Direccione -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Direccion</h4>
                             </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Dirección" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Barrio" type="text">
-                                    </mat-form-field>
-                                </div>
+                            <div class="card-body">
+                                <form>
+                                    <!-- Dirección -->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>País</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>Departamento</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>Municipio</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Dirección" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Barrio" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                                    </button>-->
+                                    <div class="clearfix"></div>
+                                </form>
                             </div>
-                            <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
-                            </button>-->
-                            <div class="clearfix"></div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- Registrar Usuarios -->
-        <div class="row">
-            <!-- Cuerpo del registro del usuario -->
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title">Usuario</h4>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Usuario" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field>
-                                        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
-                                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                        </button>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field>
-                                        <input matInput placeholder="Enter your password" [type]="hide2 ? 'password' : 'text'">
-                                        <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
-                                            <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                        </button>
-                                    </mat-form-field>
-                                </div>
+                <!-- Registrar Usuarios -->
+                <div class="row">
+                    <!-- Cuerpo del registro del usuario -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Usuario</h4>
                             </div>
-                            <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Verificar Disponibilidad
-                            </button>-->
-                            <div class="clearfix"></div>
-                        </form>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Usuario" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Enter your password"
+                                                       [type]="hide ? 'password' : 'text'">
+                                                <button mat-icon-button matSuffix (click)="hide = !hide"
+                                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                                </button>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <input matInput placeholder="Enter your password"
+                                                       [type]="hide2 ? 'password' : 'text'">
+                                                <button mat-icon-button matSuffix (click)="hide2 = !hide2"
+                                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                                                    <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                                </button>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Verificar Disponibilidad
+                                    </button>-->
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </mat-tab>
+            <!-- Asignar Labores-->
+            <mat-tab label="Asociar Labores">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Rol</h4>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!--<mat-form-field>
+                                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                                            </mat-form-field>-->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <mat-form-field>
+                                                <mat-label>Rol</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                                    </button>-->
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
     </div>
+
+
     <!--<div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
