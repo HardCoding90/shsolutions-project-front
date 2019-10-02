@@ -1,0 +1,358 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <mat-tab-group>
+            <!-- Registrar Persona-->
+            <mat-tab label="Registrar">
+                <!-- Registrar Personas -->
+                <div class="row">
+                    <!-- Cuerpo del registro de la Persona -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Persona</h4>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Primer Nombre" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Segundo Nombre" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Primer Apellido" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Segundo Apellido" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <mat-form-field color="accent">
+                                                <mat-label>Fecha Nacimiento</mat-label>
+                                                <input matInput [matDatepicker]="picker1">
+                                                <mat-datepicker-toggle matSuffix
+                                                                       [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <mat-form-field>
+                                                <mat-label>Género</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <mat-form-field>
+                                                <mat-label>Tipo Documento</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Número Documento" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                                    </button>-->
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Registrar Datos de contacto -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Datos de Contacto</h4>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Email" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Teléfono Fijo" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Celular" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Registrar Direccione -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Direccion</h4>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <!-- Dirección -->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>País</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>Departamento</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>Municipio</mat-label>
+                                                <mat-select>
+                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
+                                                         {{food.viewValue}}
+                                                     </mat-option>-->
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Dirección" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Barrio" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                                    </button>-->
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <!-- Asignar Labores-->
+            <mat-tab label="Asociar Labores">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-danger">
+                                <h4 class="card-title">Rol</h4>
+                            </div>
+                            <div class="card-body">
+                              <div class="main-content">
+                                <div class="container-fluid">
+                                  <div class="container-fluid">
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        <div class="card card-profile">
+                                          <div class="card-avatar">
+                                            <a href="javascript:void(0)">
+                                              <img class="img" src="./assets/img/faces/marc.jpg"/>
+                                            </a>
+                                          </div>
+                                          <div class="card-body">
+                                            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                                            <h4 class="card-title">Alec Thompson</h4>
+                                            <p class="card-description">
+                                              Don't be scared of the truth because we need to restart the human foundation in truth And I
+                                              love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                            </p>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="card card-profile">
+                                          <div class="card-avatar">
+                                            <a href="javascript:void(0)">
+                                              <img class="img" src="./assets/img/faces/marc.jpg"/>
+                                            </a>
+                                          </div>
+                                          <div class="card-body">
+                                            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                                            <h4 class="card-title">Alec Thompson</h4>
+                                            <p class="card-description">
+                                              Don't be scared of the truth because we need to restart the human foundation in truth And I
+                                              love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                            </p>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="card card-profile">
+                                          <div class="card-avatar">
+                                            <a href="javascript:void(0)">
+                                              <img class="img" src="./assets/img/faces/marc.jpg"/>
+                                            </a>
+                                          </div>
+                                          <div class="card-body">
+                                            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                                            <h4 class="card-title">Alec Thompson</h4>
+                                            <p class="card-description">
+                                              Don't be scared of the truth because we need to restart the human foundation in truth And I
+                                              love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                            </p>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="card card-profile">
+                                          <div class="card-avatar">
+                                            <a href="javascript:void(0)">
+                                              <img class="img" src="./assets/img/faces/marc.jpg"/>
+                                            </a>
+                                          </div>
+                                          <div class="card-body">
+                                            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                                            <h4 class="card-title">Alec Thompson</h4>
+                                            <p class="card-description">
+                                              Don't be scared of the truth because we need to restart the human foundation in truth And I
+                                              love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                                            </p>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+    </div>
+</div>
+
+<!--<div class="main-content">
+    <div class="container-fluid">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img" src="./assets/img/faces/marc.jpg"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                <h4 class="card-title">Alec Thompson</h4>
+                <p class="card-description">
+                  Don't be scared of the truth because we need to restart the human foundation in truth And I
+                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                </p>
+                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img" src="./assets/img/faces/marc.jpg"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                <h4 class="card-title">Alec Thompson</h4>
+                <p class="card-description">
+                  Don't be scared of the truth because we need to restart the human foundation in truth And I
+                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                </p>
+                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img" src="./assets/img/faces/marc.jpg"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                <h4 class="card-title">Alec Thompson</h4>
+                <p class="card-description">
+                  Don't be scared of the truth because we need to restart the human foundation in truth And I
+                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                </p>
+                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-profile">
+              <div class="card-avatar">
+                <a href="javascript:void(0)">
+                  <img class="img" src="./assets/img/faces/marc.jpg"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                <h4 class="card-title">Alec Thompson</h4>
+                <p class="card-description">
+                  Don't be scared of the truth because we need to restart the human foundation in truth And I
+                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                </p>
+                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>-->

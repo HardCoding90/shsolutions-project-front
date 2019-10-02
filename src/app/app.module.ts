@@ -12,6 +12,7 @@ import {AppComponent} from './app.component';
 
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import {CompanyProfileComponent} from './company-profile/company-profile.component';
 import {TableListComponent} from './table-list/table-list.component';
 import {TypographyComponent} from './typography/typography.component';
 import {IconsComponent} from './icons/icons.component';
@@ -22,7 +23,6 @@ import {
     AgmCoreModule
 } from '@agm/core';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
-import {ProviderProfileComponent} from './provider-profile/provider-profile.component';
 
 @NgModule({
     imports: [
@@ -40,8 +40,6 @@ import {ProviderProfileComponent} from './provider-profile/provider-profile.comp
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        ProviderProfileComponent,
-
     ],
     providers: [],
     bootstrap: [AppComponent]
