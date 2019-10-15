@@ -1,6 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { FormBuilder, Validators } from '@angular/forms';
 
+import { from, forkJoin } from 'rxjs';
+import { Genero } from 'app/models/genero';
+import { GeneroService } from 'app/services/genero.service';
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -9,6 +13,11 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 export class UserProfileComponent implements OnInit {
     hide: boolean;
     hide2: boolean;
+    /**Formulario para crear personas */
+    personaForm: any;
+
+    /** Lista de géneros */
+    generos: Genero[] = [];
 
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -16,7 +25,8 @@ export class UserProfileComponent implements OnInit {
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-    constructor() {
+    constructor( private formBuilder: FormBuilder,
+        private generoService: GeneroService) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
@@ -26,6 +36,25 @@ export class UserProfileComponent implements OnInit {
     } /*Para tener en cuenta*/
 
     ngOnInit() {
+        /** Creamos el formulario junto a sus validaciones */
+        this.personaForm = this.formBuilder.group({
+            idPersona: [null],
+            email: [ '', [Validators.required, Validators.email]],
+            primerNombre: ['', [Validators.required]],
+            segundoNombre: ['', [Validators.required]],
+            primerApellido: ['', [Validators.required]],
+            segundoApellido: ['', [Validators.required]],
+            fechaNacimiento: ['', [Validators.required]],
+            idGenero: ['', [Validators.required]],
+            idTipoDocumento: ['', [Validators.required]],
+            numeroDocumento:['', [Validators.required]],
+          });
+        
+          forkJoin( this.generoService.getAll() ).subscribe(
+              ([generos]) => {
+                this.generos = generos;
+              }
+          );
     }
 
     applyFilter(filterValue: string) {
