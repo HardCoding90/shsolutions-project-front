@@ -1,6 +1,6 @@
 export interface Producto {
-    descripcion: string;
     idProducto: number,
+    descripcion: string;
     indicadorHabilitado: boolean,
     indicadorServicio: boolean,
     marca: string;
