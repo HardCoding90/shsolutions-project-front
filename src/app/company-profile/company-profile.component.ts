@@ -1,5 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { DepartamentoService } from 'app/services/departamento.service';
+import { forkJoin } from 'rxjs';
+import { Departamento } from 'app/models/departamento';
+import { PaisService } from 'app/services/pais.service';
+import { Pais } from 'app/models/pais';
 
 @Component({
     selector: 'app-company-profile',
@@ -15,7 +20,16 @@ export class CompanyProfileComponent implements OnInit {
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-    constructor() {
+    /** Listas */
+    departamentos: Departamento[] = [];
+    departamentosByPais: Departamento[] = [];
+    paises: Pais[] = [];
+
+    constructor( 
+        /*** Instanciación de Servicios */
+        private departamentoService: DepartamentoService,
+        private paisService: PaisService
+        ) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
@@ -25,6 +39,15 @@ export class CompanyProfileComponent implements OnInit {
     } /*Para tener en cuenta*/
 
     ngOnInit() {
+        /** Cargamos la información inicial */
+        forkJoin(this.departamentoService.getAll(),
+        this.paisService.getAll()).subscribe(
+            ([ departamentos, paises ]) => {
+                this.departamentos = departamentos;
+                this.paises = paises;
+                console.log(departamentos);
+            }
+        );
     }
 
     applyFilter(filterValue: string) {
@@ -37,6 +60,13 @@ export class CompanyProfileComponent implements OnInit {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSourceProductsCompany.filter = filterValue;
+    }
+
+    selectCountry( pais: Pais) {
+        this.departamentosByPais = this.departamentos.filter(
+            x => x.idPais === pais.idPais
+        );
+        console.log(this.departamentosByPais);
     }
 }
 
@@ -69,3 +99,4 @@ const ELEMENT_DATA: PeriodicElement[] = [
     {position: 19, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
     {position: 20, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
+

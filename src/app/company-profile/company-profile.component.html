@@ -92,20 +92,20 @@
                                             <mat-form-field>
                                                 <mat-label>País</mat-label>
                                                 <mat-select>
-                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                         {{food.viewValue}}
-                                                     </mat-option>-->
+                                                     <mat-option  *ngFor="let pais of paises " [value]="pais.idPais" (onSelectionChange)="selectCountry(pais)">
+                                                         {{pais.pais}}
+                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <!-- Departamento -->
-                                        <div class="col-md-4">
+                                        <div class="col-md-4" *ngIf="departamentos">
                                             <mat-form-field>
                                                 <mat-label>Departamento</mat-label>
                                                 <mat-select>
-                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                         {{food.viewValue}}
-                                                     </mat-option>-->
+                                                     <mat-option *ngFor="let dep of departamentosByPais" [value]="dep.idDepartamento">
+                                                         {{dep.departamento}}
+                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
