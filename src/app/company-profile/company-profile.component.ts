@@ -5,6 +5,10 @@ import { forkJoin } from 'rxjs';
 import { Departamento } from 'app/models/departamento';
 import { PaisService } from 'app/services/pais.service';
 import { Pais } from 'app/models/pais';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Proveedor } from 'app/models/proveedor';
+import { ProveedorService } from 'app/services/proveedor.service';
+import { error } from 'protractor';
 
 @Component({
     selector: 'app-company-profile',
@@ -25,10 +29,17 @@ export class CompanyProfileComponent implements OnInit {
     departamentosByPais: Departamento[] = [];
     paises: Pais[] = [];
 
-    constructor( 
+    nuevoProveedor: Proveedor;
+    loadInitialInfo: boolean = true;
+
+    /***Formulario */
+    proveedor: FormGroup;
+    constructor(
         /*** Instanciación de Servicios */
         private departamentoService: DepartamentoService,
-        private paisService: PaisService
+        private paisService: PaisService,
+        private proveedorService: ProveedorService,
+        private fb: FormBuilder
         ) {
     }
 
@@ -39,15 +50,47 @@ export class CompanyProfileComponent implements OnInit {
     } /*Para tener en cuenta*/
 
     ngOnInit() {
-        /** Cargamos la información inicial */
+        /*** Cargamos el formulario */
+        this.proveedor = this.fb.group({
+        email: [null, [Validators.required, Validators.email ]],
+        fechaRegistro: [null],
+        indicadorHabilitado: [true, Validators.required],
+        nit: [null, [Validators.required, Validators.maxLength(10)]],
+        razonSocial: [null, Validators.required],
+        });
+
+         /** Cargamos la información inicial */
         forkJoin(this.departamentoService.getAll(),
         this.paisService.getAll()).subscribe(
             ([ departamentos, paises ]) => {
                 this.departamentos = departamentos;
                 this.paises = paises;
                 console.log(departamentos);
+                this.loadInitialInfo = false;
             }
         );
+   
+    }
+
+    /** Obtener controles del formulario */
+    get f () {
+        return this.proveedor.controls;
+    }
+
+    onSubmitProveedor() {
+        /**Verificamos que el formulario sea válido */
+        if (this.proveedor.valid) {
+            this.nuevoProveedor = this.proveedor.getRawValue();
+            console.log(this.nuevoProveedor);
+            this.proveedorService.create(this.nuevoProveedor).subscribe(
+                res => {
+                    console.log(res);
+                },
+                error => {
+                    console.log(error);
+                }
+            );
+        }
     }
 
     applyFilter(filterValue: string) {

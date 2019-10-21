@@ -1,9 +1,10 @@
 <div class="main-content">
     <div class="container-fluid">
-        <mat-tab-group>
+        <mat-tab-group *ngIf="!loadInitialInfo">
             <!-- Registrar Proveedores-->
             <mat-tab label="Registrar">
                 <!-- Registrar Proveedor -->
+                <form [formGroup]="proveedor" (ngSubmit)="onSubmitProveedor()">
                 <div class="row">
                     <!-- Cuerpo del registro de Proveedor -->
                     <div class="col-md-12">
@@ -12,13 +13,14 @@
                                 <h4 class="card-title">Registrar Proveedor</h4>
                             </div>
                             <div class="card-body">
-                                <form>
+                                
                                     <!-- Datos Principales -->
                                     <div class="row">
                                         <!-- Razon Social -->
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Razon Social" type="text">
+                                                <input matInput placeholder="Razon Social" type="text" 
+                                                formControlName="razonSocial">
                                             </mat-form-field>
                                         </div>
                                         <!-- Tipo Documento-->
@@ -35,12 +37,12 @@
                                         <!-- Nit -->
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Nit" type="text">
+                                                <input matInput placeholder="Nit" type="text" 
+                                                formControlName="nit">
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -53,11 +55,12 @@
                                 <h4 class="card-title">Datos de Contacto</h4>
                             </div>
                             <div class="card-body">
-                                <form>
+                                
                                     <div class="row">
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Email" type="text">
+                                                <input matInput placeholder="Email" type="text" 
+                                                formControlName="email" >
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4">
@@ -72,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
-                                </form>
+                             
                             </div>
                         </div>
                     </div>
@@ -85,7 +88,7 @@
                                 <h4 class="card-title">Direccion</h4>
                             </div>
                             <div class="card-body">
-                                <form>
+                          
                                     <!-- País -->
                                     <div class="row">
                                         <div class="col-md-4">
@@ -138,12 +141,23 @@
                                     <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
                                     </button>-->
                                     <div class="clearfix"></div>
-                                </form>
+                               
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <input mat-raised-button type="submit" class="btn btn-default" value="Guardar">
+                    </div>
+                </div>
+
+              </form>
             </mat-tab>
+
+    
+
+
             <!-- Asignar Labores-->
             <mat-tab label="Registrar Productos">
                 <div class="row">
