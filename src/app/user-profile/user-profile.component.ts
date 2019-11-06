@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { from, forkJoin } from 'rxjs';
 import { Genero } from 'app/models/genero';
@@ -14,10 +14,13 @@ export class UserProfileComponent implements OnInit {
     hide: boolean;
     hide2: boolean;
     /**Formulario para crear personas */
-    personaForm: any;
+    personaForm: FormGroup;
+   
 
     /** Lista de géneros */
-    generos: Genero[] = [];
+    generos: any [] = [];
+    /** Lista tipos documento */
+
 
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -45,22 +48,21 @@ export class UserProfileComponent implements OnInit {
             primerApellido: ['', [Validators.required]],
             segundoApellido: ['', [Validators.required]],
             fechaNacimiento: ['', [Validators.required]],
-            idGenero: ['', [Validators.required]],
-            idTipoDocumento: ['', [Validators.required]],
+            genero: ['', [Validators.required]],
             numeroDocumento:['', [Validators.required]],
           });
         
-          forkJoin( this.generoService.getAll() ).subscribe(
-              ([generos]) => {
-                this.generos = generos;
-              }
-          );
+         this.generos.push({nombre: 'Maculino'});
+         this.generos.push({nombre: 'Femenino'});
     }
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim();
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
+    }
+    onSubmitPersona() {
+
     }
 }
 
