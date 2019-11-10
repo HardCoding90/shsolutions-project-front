@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import { DepartamentoService } from 'app/services/departamento.service';
-import { forkJoin } from 'rxjs';
-import { Departamento } from 'app/models/departamento';
-import { PaisService } from 'app/services/pais.service';
-import { Pais } from 'app/models/pais';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Proveedor } from 'app/models/proveedor';
-import { ProveedorService } from 'app/services/proveedor.service';
-import { error } from 'protractor';
+import {DepartamentoService} from 'app/services/departamento.service';
+import {forkJoin} from 'rxjs';
+import {Departamento} from 'app/models/departamento';
+import {PaisService} from 'app/services/pais.service';
+import {Pais} from 'app/models/pais';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Proveedor} from 'app/models/proveedor';
+import {ProveedorService} from 'app/services/proveedor.service';
+import {error} from 'protractor';
 
 @Component({
     selector: 'app-company-profile',
@@ -30,17 +30,18 @@ export class CompanyProfileComponent implements OnInit {
     paises: Pais[] = [];
 
     nuevoProveedor: Proveedor;
-    loadInitialInfo: boolean = true;
+    loadInitialInfo = true;
 
     /***Formulario */
     proveedor: FormGroup;
+
     constructor(
         /*** Instanciación de Servicios */
         private departamentoService: DepartamentoService,
         private paisService: PaisService,
         private proveedorService: ProveedorService,
         private fb: FormBuilder
-        ) {
+    ) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
@@ -52,28 +53,28 @@ export class CompanyProfileComponent implements OnInit {
     ngOnInit() {
         /*** Cargamos el formulario */
         this.proveedor = this.fb.group({
-        email: [null, [Validators.required, Validators.email ]],
-        fechaRegistro: [null],
-        indicadorHabilitado: [true, Validators.required],
-        nit: [null, [Validators.required, Validators.maxLength(10)]],
-        razonSocial: [null, Validators.required],
+            email: [null, [Validators.required, Validators.email]],
+            fechaRegistro: [null],
+            indicadorHabilitado: [true, Validators.required],
+            nit: [null, [Validators.required, Validators.maxLength(10)]],
+            razonSocial: [null, Validators.required],
         });
 
-         /** Cargamos la información inicial */
+        /** Cargamos la información inicial */
         forkJoin(this.departamentoService.getAll(),
-        this.paisService.getAll()).subscribe(
-            ([ departamentos, paises ]) => {
+            this.paisService.getAll()).subscribe(
+            ([departamentos, paises]) => {
                 this.departamentos = departamentos;
                 this.paises = paises;
                 console.log(departamentos);
                 this.loadInitialInfo = false;
             }
         );
-   
+
     }
 
     /** Obtener controles del formulario */
-    get f () {
+    get f() {
         return this.proveedor.controls;
     }
 
@@ -86,6 +87,7 @@ export class CompanyProfileComponent implements OnInit {
                 res => {
                     console.log(res);
                 },
+                // tslint:disable-next-line:no-shadowed-variable
                 error => {
                     console.log(error);
                 }
@@ -105,7 +107,7 @@ export class CompanyProfileComponent implements OnInit {
         this.dataSourceProductsCompany.filter = filterValue;
     }
 
-    selectCountry( pais: Pais) {
+    selectCountry(pais: Pais) {
         this.departamentosByPais = this.departamentos.filter(
             x => x.idPais === pais.idPais
         );
