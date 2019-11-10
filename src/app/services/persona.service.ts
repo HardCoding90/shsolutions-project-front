@@ -20,7 +20,7 @@ export class PersonaService {
   }
   /** Obtener todos los registros habilitados */
   getAllEnabled() {
-    return this.http.get<Persona []>(this.url + '/enabled');
+    return this.http.get<Persona []>(this.url + '/findAll/enabled');
   }
   /** Obtener registro por id  */
   getById( id: string ) {

@@ -12,6 +12,7 @@ import { DepartamentoService } from 'app/services/departamento.service';
 import { Departamento } from 'app/models/departamento';
 import { Municipio } from 'app/models/municipio';
 import { MunicipioService } from 'app/services/municipio.service';
+import { Persona } from 'app/models/persona';
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -29,11 +30,13 @@ export class UserProfileComponent implements OnInit {
     paises: Pais [] = [];
     departamentos: Departamento [] = [];
     municipios: Municipio [] = [];
+    personas: Persona [] = [];
     /** Lista tipos documento */
 
 
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    displayedColumns: string[] = ['id', 'nombre', 'apellidos', 'cedula', 'email', 'celular'];
+    dataSource = null;
+    // new MatTableDataSource(ELEMENT_DATA);
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -78,10 +81,13 @@ export class UserProfileComponent implements OnInit {
          this.generos.push({nombre: 'Femenino'});
 
          /** Se carga la data inicial */
-         this.paisService.getAllEnabled().subscribe(
-             res => {
-                 this.paises = res;
-                console.log(res);
+         forkJoin(this.paisService.getAllEnabled(),
+         this.personaService.getAllEnabled()
+         ).subscribe(
+             ([paises, personas]) => {
+                this.paises = paises;
+                this.personas = personas;
+                this.dataSource = new MatTableDataSource(this.personas);
              }
          );
     }
