@@ -24,22 +24,26 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Primer Nombre" type="text">
+                                                <input matInput placeholder="Primer Nombre"
+                                                formControlName="primerNombre" type="text">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Segundo Nombre" type="text">
+                                                <input matInput placeholder="Segundo Nombre" 
+                                                formControlName="segundoNombre" type="text">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Primer Apellido" type="text">
+                                                <input matInput placeholder="Primer Apellido"
+                                                formControlName="primerApellido" type="text">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-3">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Segundo Apellido" type="text">
+                                                <input matInput placeholder="Segundo Apellido"
+                                                formControlName="segundoApellido" type="text">
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -47,7 +51,8 @@
                                         <div class="col-md-6">
                                             <mat-form-field color="accent">
                                                 <mat-label>Fecha Nacimiento</mat-label>
-                                                <input matInput [matDatepicker]="picker1">
+                                                <input matInput [matDatepicker]="picker1" 
+                                                formControlName="fechaNacimiento" >
                                                 <mat-datepicker-toggle matSuffix
                                                                        [for]="picker1"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker1></mat-datepicker>
@@ -56,7 +61,7 @@
                                         <div class="col-md-6">
                                             <mat-form-field>
                                                 <mat-label>Género</mat-label>
-                                                <mat-select>
+                                                <mat-select formControlName="genero">
                                                     <mat-option *ngFor="let gen of generos" [value]="gen.nombre">
                                                          {{gen.nombre}}
                                                      </mat-option>
@@ -67,8 +72,21 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Número Documento" type="text">
+                                                <input matInput placeholder="Número Documento"
+                                                formControlName="numeroDocumento" type="text">
                                             </mat-form-field>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox"
+                                                    formControlName="indicadorCliente" value="">
+                                                    Es cliente
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                              </div>
                                         </div>
                                     </div>
                                     <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
@@ -84,17 +102,20 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Email" type="text">
+                                                <input matInput placeholder="Email" 
+                                                formControlName="email" type="text">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Teléfono Fijo" type="text">
+                                                <input matInput placeholder="Teléfono Fijo"
+                                                formControlName="telefono" type="text">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Celular" type="text">
+                                                <input matInput placeholder="Celular"
+                                                formControlName="celular" type="text">
                                             </mat-form-field>
                                         </div>
                                     </div>

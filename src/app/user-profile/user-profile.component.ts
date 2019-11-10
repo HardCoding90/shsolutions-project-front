@@ -5,6 +5,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { from, forkJoin } from 'rxjs';
 import { Genero } from 'app/models/genero';
 import { GeneroService } from 'app/services/genero.service';
+import { PersonaService } from 'app/services/persona.service';
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -29,7 +30,8 @@ export class UserProfileComponent implements OnInit {
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
     constructor( private formBuilder: FormBuilder,
-        private generoService: GeneroService) {
+        private generoService: GeneroService,
+        private personaService: PersonaService) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
@@ -42,6 +44,8 @@ export class UserProfileComponent implements OnInit {
         /** Creamos el formulario junto a sus validaciones */
         this.personaForm = this.formBuilder.group({
             idPersona: [null],
+            idSucursal: [null],
+            idRol: [3],
             email: [ '', [Validators.required, Validators.email]],
             primerNombre: ['', [Validators.required]],
             segundoNombre: ['', [Validators.required]],
@@ -50,6 +54,9 @@ export class UserProfileComponent implements OnInit {
             fechaNacimiento: ['', [Validators.required]],
             genero: ['', [Validators.required]],
             numeroDocumento:['', [Validators.required]],
+            celular: ['', [Validators.required]],
+            telefono: ['', [Validators.required]],
+            indicadorCliente: [true, [Validators.required]],
           });
         
          this.generos.push({nombre: 'Maculino'});
@@ -62,7 +69,17 @@ export class UserProfileComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
     onSubmitPersona() {
-
+        console.log(this.personaForm.value);
+        if ( this.personaForm.valid ) {
+            this.personaService.create( this.personaForm.value ).subscribe(
+                persona => {
+                    alert('Persona Creada');
+                },
+                error => { 
+                    console.log(error);
+                }
+            );
+        }
     }
 }
 
