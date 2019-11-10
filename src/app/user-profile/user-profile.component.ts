@@ -6,6 +6,12 @@ import { from, forkJoin } from 'rxjs';
 import { Genero } from 'app/models/genero';
 import { GeneroService } from 'app/services/genero.service';
 import { PersonaService } from 'app/services/persona.service';
+import { PaisService } from 'app/services/pais.service';
+import { Pais } from 'app/models/pais';
+import { DepartamentoService } from 'app/services/departamento.service';
+import { Departamento } from 'app/models/departamento';
+import { Municipio } from 'app/models/municipio';
+import { MunicipioService } from 'app/services/municipio.service';
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -18,8 +24,11 @@ export class UserProfileComponent implements OnInit {
     personaForm: FormGroup;
    
 
-    /** Lista de géneros */
+    /** Listas*/
     generos: any [] = [];
+    paises: Pais [] = [];
+    departamentos: Departamento [] = [];
+    municipios: Municipio [] = [];
     /** Lista tipos documento */
 
 
@@ -31,6 +40,9 @@ export class UserProfileComponent implements OnInit {
 
     constructor( private formBuilder: FormBuilder,
         private generoService: GeneroService,
+        private paisService: PaisService,
+        private departamentoService: DepartamentoService,
+        private municipioService: MunicipioService,
         private personaService: PersonaService) {
     }
 
@@ -45,7 +57,8 @@ export class UserProfileComponent implements OnInit {
         this.personaForm = this.formBuilder.group({
             idPersona: [null],
             idSucursal: [null],
-            idRol: [3],
+            idRol: [null],
+            idMunicipio: [ null, [Validators.required]],
             email: [ '', [Validators.required, Validators.email]],
             primerNombre: ['', [Validators.required]],
             segundoNombre: ['', [Validators.required]],
@@ -56,11 +69,39 @@ export class UserProfileComponent implements OnInit {
             numeroDocumento:['', [Validators.required]],
             celular: ['', [Validators.required]],
             telefono: ['', [Validators.required]],
+            direccion: ['', [Validators.required]],
+            barrio: ['', [Validators.required]],
             indicadorCliente: [true, [Validators.required]],
           });
         
          this.generos.push({nombre: 'Maculino'});
          this.generos.push({nombre: 'Femenino'});
+
+         /** Se carga la data inicial */
+         this.paisService.getAllEnabled().subscribe(
+             res => {
+                 this.paises = res;
+                console.log(res);
+             }
+         );
+    }
+    seleccionarPais( event: any) {
+        this.departamentos = [];
+        this.departamentoService.getByPais(event).subscribe(
+            departamentos => {
+                this.departamentos = departamentos;
+            }
+        );
+    }
+
+    seleccionarDepartamento( event: any) {
+        this.municipios = [];
+        this.municipioService.getByDepartamento( event ).subscribe(
+            mun => {
+                this.municipios = mun;
+            }
+        );
+
     }
 
     applyFilter(filterValue: string) {

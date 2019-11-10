@@ -4,7 +4,7 @@ export interface Municipio {
     idMunicipio: number;
     idDepartamento: number;
     codigo: number;
-    ciudad: string;
+    municipio: string;
     departamentos: Departamento ;
     indicadorHabilitado: boolean;
 }

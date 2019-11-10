@@ -34,7 +34,12 @@ export class DepartamentoService {
   }
   /** Actualizar registro */
   update( departamento: Departamento) {
-    return this.http.put<Venta>(this.url, departamento );
+    return this.http.put<Departamento>(this.url, departamento );
   }
+
+    /** Obtener todos los registros por país */
+    getByPais( idPais: number ): Observable<Departamento []> {
+      return this.http.get<Departamento []>(this.url + '/pais/' + idPais);
+    }
 
 }

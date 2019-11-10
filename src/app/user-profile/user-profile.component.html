@@ -119,6 +119,55 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
+                                    <!-- Dirección -->
+                                       <!-- Dirección -->
+                                       <div class="row">
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>País</mat-label>
+                                                <mat-select (selectionChange)="seleccionarPais($event.value)" >
+                                                     <mat-option *ngFor="let pais of paises" [value]="pais.idPais">
+                                                         {{pais.pais}}
+                                                     </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>Departamento</mat-label>
+                                                <mat-select (selectionChange)="seleccionarDepartamento($event.value)" >
+                                                    <mat-option *ngFor="let dep of departamentos" [value]="dep.idDepartamento">
+                                                         {{dep.departamento}}
+                                                     </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field>
+                                                <mat-label>Municipio</mat-label>
+                                                <mat-select formControlName="idMunicipio" >
+                                                     <mat-option *ngFor="let mun of municipios" [value]="mun.idMunicipio ">
+                                                         {{mun.municipio}}
+                                                     </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Dirección"
+                                                formControlName="direccion" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Barrio" 
+                                                formControlName="barrio" type="text">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                             <div class="col-12 text-center">
                                                 <input mat-raised-button type="submit" 
@@ -178,20 +227,20 @@
                                         <div class="col-md-4">
                                             <mat-form-field>
                                                 <mat-label>País</mat-label>
-                                                <mat-select>
-                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                         {{food.viewValue}}
-                                                     </mat-option>-->
+                                                <mat-select (selectionChange)="seleccionarPais($event.value)" >
+                                                     <mat-option *ngFor="let pais of paises" [value]="pais.idPais">
+                                                         {{pais.pais}}
+                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field>
                                                 <mat-label>Departamento</mat-label>
-                                                <mat-select>
-                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                         {{food.viewValue}}
-                                                     </mat-option>-->
+                                                <mat-select (selectionChange)="seleccionarDepartamento($event.value)" >
+                                                    <mat-option *ngFor="let dep of departamentos" [value]="dep.idDepartamento">
+                                                         {{dep.departamento}}
+                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -199,9 +248,9 @@
                                             <mat-form-field>
                                                 <mat-label>Municipio</mat-label>
                                                 <mat-select>
-                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                         {{food.viewValue}}
-                                                     </mat-option>-->
+                                                     <mat-option *ngFor="let mun of municipios" [value]="mun.idMunicipio ">
+                                                         {{mun.municipio}}
+                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>

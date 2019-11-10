@@ -23,7 +23,7 @@ export class PaisService {
   }
   /** Obtener todos los registros habilitados */
   getAllEnabled() {
-    return this.http.get<Pais []>(this.url + '/enabled');
+    return this.http.get<Pais []>(this.url + '/findAll/enabled');
   }
   /** Obtener registro por id  */
   getById( id: string ) {

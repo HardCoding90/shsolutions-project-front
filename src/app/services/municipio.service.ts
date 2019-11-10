@@ -36,5 +36,9 @@ export class MunicipioService {
   update( municipio: Municipio) {
     return this.http.put<Municipio>(this.url, municipio );
   }
+    /** Obtener por idDepartamento */
+    getByDepartamento( idDepartamento: number ): Observable<Municipio []> {
+      return this.http.get<Municipio []>(this.url + '/departamento/' + idDepartamento);
+    }
 
 }
