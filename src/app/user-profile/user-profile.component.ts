@@ -33,6 +33,7 @@ export class UserProfileComponent implements OnInit {
     departamentos: Departamento [] = [];
     municipios: Municipio [] = [];
     personas: Persona [] = [];
+    todosEmpleados: Persona [] = [];
     empleados: Persona [] = [];
     sucursales: Sucursal [] = [];
     /** Lista tipos documento */
@@ -107,6 +108,7 @@ export class UserProfileComponent implements OnInit {
                 this.empleados = this.empleados.filter(
                     x => x.indicadorCliente === false
                 );
+                this.todosEmpleados = this.empleados;
 
                 this.dataSource = new MatTableDataSource(this.personas);
                 this.dataSourceEmpleados = new MatTableDataSource( this.empleados );
@@ -137,6 +139,12 @@ export class UserProfileComponent implements OnInit {
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
+
+    applyFilterEmpleados(filterValue: string) {
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSourceEmpleados.filter = filterValue;
+    }
     onSubmitPersona() {
         console.log(this.personaForm.value);
         if ( this.personaForm.valid ) {
@@ -149,6 +157,14 @@ export class UserProfileComponent implements OnInit {
                 }
             );
         }
+    }
+
+    filtrarPorSucursal( idSucursal: any ) {
+        this.empleados = this.todosEmpleados;
+        this.empleados = this.empleados.filter(
+            x => x.idSucursal === idSucursal
+        );
+        this.dataSourceEmpleados = this.empleados;
     }
 }
 

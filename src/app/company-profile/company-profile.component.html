@@ -1,255 +1,237 @@
 <div class="main-content">
     <div class="container-fluid">
-        <mat-tab-group *ngIf="!loadInitialInfo">
-            <!-- Registrar Proveedores-->
+        <mat-tab-group>
+            <!-- Registrar Persona-->
             <mat-tab label="Registrar">
-                <!-- Registrar Proveedor -->
-                <form [formGroup]="proveedor" (ngSubmit)="onSubmitProveedor()">
+                <!-- Registrar Personas -->
                 <div class="row">
-                    <!-- Cuerpo del registro de Proveedor -->
+                    <!-- Cuerpo del registro de la Persona -->
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-danger">
-                                <h4 class="card-title">Registrar Proveedor</h4>
+                                <h4 class="card-title">Empresa</h4>
                             </div>
                             <div class="card-body">
-                                
-                                    <!-- Datos Principales -->
+                                <form [formGroup]="proveedorForm" (ngSubmit)="onSubmitProveedor()">
+                                        <div class="row" style="margin-top: 20px;">
+                                                <div class="col-12" >
+                                                        <h4 style="margin: 0px;
+                                                         margin-bottom: 5px; 
+                                                         font-weight: bold;
+                                                         font-size: 20px;">Datos generales</h4>
+                                                </div>
+                                            </div>
                                     <div class="row">
-                                        <!-- Razon Social -->
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Razon Social" type="text" 
-                                                formControlName="razonSocial">
+                                                <input matInput placeholder="Razón Social"
+                                                formControlName="razonSocial" type="text">
                                             </mat-form-field>
                                         </div>
-                                        <!-- Tipo Documento-->
-                                        <div class="col-md-4">
-                                            <mat-form-field>
-                                                <mat-label>Tipo Documento</mat-label>
-                                                <mat-select>
-                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                         {{food.viewValue}}
-                                                     </mat-option>-->
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <!-- Nit -->
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Nit" type="text" 
-                                                formControlName="nit">
+                                                <input matInput placeholder="NIT" 
+                                                formControlName="nit" type="text">
                                             </mat-form-field>
                                         </div>
                                     </div>
-                                    <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Registrar Datos de contacto -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header card-header-danger">
-                                <h4 class="card-title">Datos de Contacto</h4>
-                            </div>
-                            <div class="card-body">
-                                
+                                  
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox"
+                                                    formControlName="indicadorCliente" value="">
+                                                    Es cliente
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                                    </button>-->
+                                    <div class="row" style="margin-top: 20px;">
+                                        <div class="col-12" >
+                                                <h4 style="margin: 0px;
+                                                 margin-bottom: 5px; 
+                                                 font-weight: bold;
+                                                 font-size: 20px;">Datos de contácto</h4>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Email" type="text" 
-                                                formControlName="email" >
+                                                <input matInput placeholder="Email" 
+                                                formControlName="email" type="text">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Teléfono Fijo" type="text">
+                                                <input matInput placeholder="Teléfono Fijo"
+                                                formControlName="telefono" type="text">
                                             </mat-form-field>
                                         </div>
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Celular" type="text">
+                                                <input matInput placeholder="Celular"
+                                                formControlName="celular" type="text">
                                             </mat-form-field>
                                         </div>
                                     </div>
-                                    <div class="clearfix"></div>
-                             
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Registrar Direcciones -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header card-header-danger">
-                                <h4 class="card-title">Direccion</h4>
-                            </div>
-                            <div class="card-body">
-                          
-                                    <!-- País -->
-                                    <div class="row">
+                                    <!-- Dirección -->
+                                       <!-- Dirección -->
+                                       <div class="row">
                                         <div class="col-md-4">
                                             <mat-form-field>
                                                 <mat-label>País</mat-label>
-                                                <mat-select>
-                                                     <mat-option  *ngFor="let pais of paises " [value]="pais.idPais" (onSelectionChange)="selectCountry(pais)">
+                                                <mat-select (selectionChange)="seleccionarPais($event.value)" >
+                                                     <mat-option *ngFor="let pais of paises" [value]="pais.idPais">
                                                          {{pais.pais}}
                                                      </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <!-- Departamento -->
-                                        <div class="col-md-4" *ngIf="departamentos">
+                                        <div class="col-md-4">
                                             <mat-form-field>
                                                 <mat-label>Departamento</mat-label>
-                                                <mat-select>
-                                                     <mat-option *ngFor="let dep of departamentosByPais" [value]="dep.idDepartamento">
+                                                <mat-select (selectionChange)="seleccionarDepartamento($event.value)" >
+                                                    <mat-option *ngFor="let dep of departamentos" [value]="dep.idDepartamento">
                                                          {{dep.departamento}}
                                                      </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <!-- Municipio -->
                                         <div class="col-md-4">
                                             <mat-form-field>
                                                 <mat-label>Municipio</mat-label>
-                                                <mat-select>
-                                                    <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-                                                         {{food.viewValue}}
-                                                     </mat-option>-->
+                                                <mat-select formControlName="idMunicipio" >
+                                                     <mat-option *ngFor="let mun of municipios" [value]="mun.idMunicipio ">
+                                                         {{mun.municipio}}
+                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <!-- Dirección -->
                                         <div class="col-md-8">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Dirección" type="text">
+                                                <input matInput placeholder="Dirección"
+                                                formControlName="direccion" type="text">
                                             </mat-form-field>
                                         </div>
-                                        <!-- Barrio -->
                                         <div class="col-md-4">
                                             <mat-form-field class="example-full-width">
-                                                <input matInput placeholder="Barrio" type="text">
+                                                <input matInput placeholder="Barrio" 
+                                                formControlName="barrio" type="text">
                                             </mat-form-field>
                                         </div>
                                     </div>
-                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
-                                    </button>-->
+
+                                    <div class="row">
+                                            <div class="col-12 text-center">
+                                                <input mat-raised-button type="submit" 
+                                                style="margin-top: 20px;"
+                                                class="btn btn-default" value="Guardar">
+                                            </div>
+                                        </div>
                                     <div class="clearfix"></div>
-                               
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <input mat-raised-button type="submit" class="btn btn-default" value="Guardar">
-                    </div>
-                </div>
 
-              </form>
             </mat-tab>
 
-    
-
-
-            <!-- Asignar Labores-->
-            <mat-tab label="Registrar Productos">
+            <mat-tab label="Empresas">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-danger">
-                                <h4 class="card-title">Productos</h4>
+                                <h4 class="card-title">Empresas</h4>
                             </div>
                             <div class="card-body">
                                 <form>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <mat-form-field>
-                                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Productos">
+                                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro">
                                             </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" (change)="filtroEmpresas()"
+                                                     [(ngModel)]="indicadorCliente" name="check1" >
+                                                    Clientes
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                              </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" (change)="filtroEmpresas()"
+                                                     [(ngModel)]="indicadorProveedor" name="check2">
+                                                    Proveedores
+                                                    <span class="form-check-sign">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                              </div>
                                         </div>
                                     </div>
                                     <div class="principal-container small mat-elevation-z8">
-                                        <table mat-table [dataSource]="dataSource">
+                                        <table mat-table [dataSource]="dataSourceProveedores">
 
-                                            <!-- Position Column -->
-                                            <ng-container matColumnDef="position">
+                                            <!-- ID Column -->
+                                            <ng-container matColumnDef="id">
                                                 <th mat-header-cell *matHeaderCellDef> ID </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                                                <td mat-cell *matCellDef="let element"> {{element.idProveedor }} </td>
                                             </ng-container>
 
-                                            <!-- Weight Column -->
-                                            <ng-container matColumnDef="weight">
-                                                <th mat-header-cell *matHeaderCellDef> Código </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                                            <!-- Nombre Column -->
+                                            <ng-container matColumnDef="razon">
+                                                <th mat-header-cell *matHeaderCellDef> Razón Social </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.razonSocial}} </td>
                                             </ng-container>
 
-                                            <!-- Name Column -->
-                                            <ng-container matColumnDef="name">
-                                                <th mat-header-cell *matHeaderCellDef> Ciudad </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                                            <!-- Apellidos Column -->
+                                            <ng-container matColumnDef="nit">
+                                                <th mat-header-cell *matHeaderCellDef> Nit </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.nit}} </td>
                                             </ng-container>
 
-                                            <!-- Symbol Column -->
-                                            <ng-container matColumnDef="symbol">
-                                                <th mat-header-cell *matHeaderCellDef> Encargado </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                                              <!-- Email Column -->
+                                              <ng-container matColumnDef="telefono">
+                                                    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+                                                </ng-container>
+
+                                            <!-- Email Column -->
+                                            <ng-container matColumnDef="email">
+                                                <th mat-header-cell *matHeaderCellDef> Email </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
                                             </ng-container>
 
+                                              <!-- Email Column -->
+                                              <ng-container matColumnDef="celular">
+                                                    <th mat-header-cell *matHeaderCellDef> Celular </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
+                                                </ng-container>
+                                                
                                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                                         </table>
 
-                                        <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+                                        <mat-paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
                                     </div>
-                                    <div class="clearfix"></div>
-                                    <!-- Asignar Productos -->
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <mat-form-field>
-                                                <input matInput (keyup)="applyFilterRegisteredProducts($event.target.value)" placeholder="Productos">
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="principal-container small mat-elevation-z8">
-                                        <table mat-table [dataSource]="dataSourceProductsCompany">
-
-                                            <!-- Position Column -->
-                                            <ng-container matColumnDef="position">
-                                                <th mat-header-cell *matHeaderCellDef> ID </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                                            </ng-container>
-
-                                            <!-- Weight Column -->
-                                            <ng-container matColumnDef="weight">
-                                                <th mat-header-cell *matHeaderCellDef> Código </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-                                            </ng-container>
-
-                                            <!-- Name Column -->
-                                            <ng-container matColumnDef="name">
-                                                <th mat-header-cell *matHeaderCellDef> Ciudad </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                                            </ng-container>
-
-                                            <!-- Symbol Column -->
-                                            <ng-container matColumnDef="symbol">
-                                                <th mat-header-cell *matHeaderCellDef> Encargado </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                                            </ng-container>
-
-                                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                                        </table>
-
-                                        <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
-                                    </div>
+                                    <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
+                                    </button>-->
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -257,89 +239,9 @@
                     </div>
                 </div>
             </mat-tab>
+
+   
         </mat-tab-group>
 
     </div>
 </div>
-
-<!--<div class="main-content">
-    <div class="container-fluid">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card card-profile">
-              <div class="card-avatar">
-                <a href="javascript:void(0)">
-                  <img class="img" src="./assets/img/faces/marc.jpg"/>
-                </a>
-              </div>
-              <div class="card-body">
-                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                <h4 class="card-title">Alec Thompson</h4>
-                <p class="card-description">
-                  Don't be scared of the truth because we need to restart the human foundation in truth And I
-                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                </p>
-                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card card-profile">
-              <div class="card-avatar">
-                <a href="javascript:void(0)">
-                  <img class="img" src="./assets/img/faces/marc.jpg"/>
-                </a>
-              </div>
-              <div class="card-body">
-                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                <h4 class="card-title">Alec Thompson</h4>
-                <p class="card-description">
-                  Don't be scared of the truth because we need to restart the human foundation in truth And I
-                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                </p>
-                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card card-profile">
-              <div class="card-avatar">
-                <a href="javascript:void(0)">
-                  <img class="img" src="./assets/img/faces/marc.jpg"/>
-                </a>
-              </div>
-              <div class="card-body">
-                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                <h4 class="card-title">Alec Thompson</h4>
-                <p class="card-description">
-                  Don't be scared of the truth because we need to restart the human foundation in truth And I
-                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                </p>
-                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card card-profile">
-              <div class="card-avatar">
-                <a href="javascript:void(0)">
-                  <img class="img" src="./assets/img/faces/marc.jpg"/>
-                </a>
-              </div>
-              <div class="card-body">
-                <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                <h4 class="card-title">Alec Thompson</h4>
-                <p class="card-description">
-                  Don't be scared of the truth because we need to restart the human foundation in truth And I
-                  love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                </p>
-                <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-</div>-->

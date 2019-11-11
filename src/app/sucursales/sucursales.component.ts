@@ -39,7 +39,7 @@ export class SucursalesComponent implements OnInit {
     /** Lista tipos documento */
 
 
-    displayedColumns: string[] = ['id', 'nombre', 'apellidos', 'cedula', 'email', 'celular'];
+    displayedColumns: string[] = ['id', 'nombre', 'tel', 'email'];
     dataSource = null;
     dataSourceEmpleados = null;
 
@@ -101,7 +101,7 @@ export class SucursalesComponent implements OnInit {
                     x => x.indicadorCliente === false
                 );
 
-                this.dataSource = new MatTableDataSource(this.personas);
+                this.dataSource = new MatTableDataSource(this.sucursales);
                 this.dataSourceEmpleados = new MatTableDataSource( this.empleados );
              }
          );

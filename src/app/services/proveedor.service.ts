@@ -23,7 +23,7 @@ export class ProveedorService {
   }
   /** Obtener todos los registros habilitados */
   getAllEnabled() {
-    return this.http.get<Proveedor []>(this.url + '/enabled');
+    return this.http.get<Proveedor []>(this.url + '/findAll/enabled');
   }
   /** Obtener registro por id  */
   getById( id: string ) {

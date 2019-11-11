@@ -4,5 +4,10 @@ export interface Proveedor {
     fechaRegistro: string;
     nit: string,
     razonSocial: string;
+    barrio: string;
+    celular: string;
+    telefono: string;
+    direccion: string;
+    indicadorCliente: boolean;
     indicadorHabilitado: boolean;
 }

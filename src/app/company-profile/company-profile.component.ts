@@ -9,6 +9,14 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Proveedor} from 'app/models/proveedor';
 import {ProveedorService} from 'app/services/proveedor.service';
 import {error} from 'protractor';
+import { GeneroService } from 'app/services/genero.service';
+import { Municipio } from 'app/models/municipio';
+import { Persona } from 'app/models/persona';
+import { Sucursal } from 'app/models/sucursal';
+import { MunicipioService } from 'app/services/municipio.service';
+import { SucursalService } from 'app/services/sucursal.service';
+import { PersonaService } from 'app/services/persona.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-company-profile',
@@ -17,31 +25,45 @@ import {error} from 'protractor';
 })
 export class CompanyProfileComponent implements OnInit {
 
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
-    dataSourceProductsCompany = new MatTableDataSource();
+    hide: boolean;
+    hide2: boolean;
+    /**Formulario para crear personas */
+    proveedorForm: FormGroup;
+
+    /** Listas*/
+    paises: Pais [] = [];
+    departamentos: Departamento [] = [];
+    municipios: Municipio [] = [];
+    personas: Persona [] = [];
+    todosEmpleados: Persona [] = [];
+    empleados: Persona [] = [];
+    proveedores: Proveedor [] = [];
+    todosProveedores: Proveedor [] = [];
+    /** Lista tipos documento */
+
+    // controles filtro empresa
+    indicadorProveedor: boolean = true;
+    indicadorCliente: boolean = true;
+
+
+
+    displayedColumns: string[] = ['id', 'razon', 'nit', 'telefono', 'email', 'celular'];
+    dataSource = null;
+    dataSourceProveedores = null;
+
+    // new MatTableDataSource(ELEMENT_DATA);
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-    /** Listas */
-    departamentos: Departamento[] = [];
-    departamentosByPais: Departamento[] = [];
-    paises: Pais[] = [];
-
-    nuevoProveedor: Proveedor;
-    loadInitialInfo = true;
-
-    /***Formulario */
-    proveedor: FormGroup;
-
-    constructor(
-        /*** Instanciación de Servicios */
-        private departamentoService: DepartamentoService,
+    constructor( private formBuilder: FormBuilder,
+        private generoService: GeneroService,
         private paisService: PaisService,
+        private departamentoService: DepartamentoService,
+        private municipioService: MunicipioService,
+        private sucursalesService: SucursalService,
         private proveedorService: ProveedorService,
-        private fb: FormBuilder
-    ) {
+        private personaService: PersonaService) {
     }
 
     // tslint:disable-next-line:use-life-cycle-interface
@@ -51,68 +73,118 @@ export class CompanyProfileComponent implements OnInit {
     } /*Para tener en cuenta*/
 
     ngOnInit() {
-        /*** Cargamos el formulario */
-        this.proveedor = this.fb.group({
-            email: [null, [Validators.required, Validators.email]],
-            fechaRegistro: [null],
-            indicadorHabilitado: [true, Validators.required],
-            nit: [null, [Validators.required, Validators.maxLength(10)]],
-            razonSocial: [null, Validators.required],
-        });
+        /** Creamos el formulario junto a sus validaciones */
+        this.proveedorForm = this.formBuilder.group({
+            idProveedor: [null],
+            idMunicipio: [ null, [Validators.required]],
+            email: [ '', [Validators.required, Validators.email]],
+            nit: ['', [Validators.required]],
+            razonSocial:['', [Validators.required]],
+            celular: ['', [Validators.required]],
+            telefono: ['', [Validators.required]],
+            direccion: ['', [Validators.required]],
+            barrio: ['', [Validators.required]],
+            indicadorCliente: [true, [Validators.required]],
+            indicadorHabilitado: [true],
+          });
+    
 
-        /** Cargamos la información inicial */
-        forkJoin(this.departamentoService.getAll(),
-            this.paisService.getAll()).subscribe(
-            ([departamentos, paises]) => {
-                this.departamentos = departamentos;
+         /** Se carga la data inicial */
+         forkJoin(this.paisService.getAllEnabled(),
+         this.personaService.getAllEnabled(),
+         this.proveedorService.getAllEnabled()
+         ).subscribe(
+             ([paises, personas, proveedores]) => {
                 this.paises = paises;
-                console.log(departamentos);
-                this.loadInitialInfo = false;
+                this.personas = personas;
+                this.proveedores = proveedores;
+                this.todosProveedores = proveedores;
+                
+                /*** Se filtra personas cliente */
+                this.personas = this.personas.filter(
+                    x => x.indicadorCliente === true
+                );
+
+                /*** Se filtran empleados */
+                this.empleados = personas;
+                this.empleados = this.empleados.filter(
+                    x => x.indicadorCliente === false
+                );
+                this.todosEmpleados = this.empleados;
+
+                this.dataSource = new MatTableDataSource(this.personas);
+                this.dataSourceProveedores = new MatTableDataSource( this.proveedores );
+             }
+         );
+    }
+    seleccionarPais( event: any) {
+        this.departamentos = [];
+        this.departamentoService.getByPais(event).subscribe(
+            departamentos => {
+                this.departamentos = departamentos;
+            }
+        );
+    }
+
+    seleccionarDepartamento( event: any) {
+        this.municipios = [];
+        this.municipioService.getByDepartamento( event ).subscribe(
+            mun => {
+                this.municipios = mun;
             }
         );
 
     }
-
-    /** Obtener controles del formulario */
-    get f() {
-        return this.proveedor.controls;
+    filtroEmpresas() {
+        this.proveedores = this.todosProveedores;
+        if ( this.indicadorCliente === false && this.indicadorProveedor === false ){
+            this.proveedores = [];
+        } else {
+            if ( !(this.indicadorCliente && this.indicadorProveedor) ) {
+                if (this.indicadorCliente) {
+                    this.proveedores = this.proveedores.filter(
+                        x => x.indicadorCliente === true
+                    );
+                }
+                if (this.indicadorProveedor) {
+                    this.proveedores = this.proveedores.filter(
+                        x => x.indicadorCliente === false
+                    );
+                }
+            }
+        }
+        this.dataSourceProveedores = new MatTableDataSource( this.proveedores );
+    
+        
     }
-
+    applyFilter(filterValue: string) {
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSourceProveedores.filter = filterValue;
+    }
     onSubmitProveedor() {
-        /**Verificamos que el formulario sea válido */
-        if (this.proveedor.valid) {
-            this.nuevoProveedor = this.proveedor.getRawValue();
-            console.log(this.nuevoProveedor);
-            this.proveedorService.create(this.nuevoProveedor).subscribe(
+        if ( this.proveedorForm.valid ) {
+            this.proveedorService.create( this.proveedorForm.value ).subscribe(
                 res => {
-                    console.log(res);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Empresa Agregada!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                 },
-                // tslint:disable-next-line:no-shadowed-variable
                 error => {
-                    console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ups, hubo un error al agregar!',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                 }
             );
         }
     }
 
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim();
-        filterValue = filterValue.toLowerCase();
-        this.dataSource.filter = filterValue;
-    }
-
-    applyFilterRegisteredProducts(filterValue: string) {
-        filterValue = filterValue.trim();
-        filterValue = filterValue.toLowerCase();
-        this.dataSourceProductsCompany.filter = filterValue;
-    }
-
-    selectCountry(pais: Pais) {
-        this.departamentosByPais = this.departamentos.filter(
-            x => x.idPais === pais.idPais
-        );
-        console.log(this.departamentosByPais);
-    }
 }
 
 export interface PeriodicElement {
@@ -144,4 +216,3 @@ const ELEMENT_DATA: PeriodicElement[] = [
     {position: 19, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
     {position: 20, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
-
