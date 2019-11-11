@@ -22,8 +22,9 @@ import {UpgradeComponent} from './upgrade/upgrade.component';
 import {
     AgmCoreModule
 } from '@agm/core';
-import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SucursalesComponent } from './sucursales/sucursales.component';
 
 @NgModule({
     imports: [

@@ -1,30 +1,31 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { DepartamentoService } from 'app/services/departamento.service';
+import { PaisService } from 'app/services/pais.service';
+import { GeneroService } from 'app/services/genero.service';
+import { MunicipioService } from 'app/services/municipio.service';
+import { SucursalService } from 'app/services/sucursal.service';
+import { PersonaService } from 'app/services/persona.service';
 import { from, forkJoin } from 'rxjs';
 import { Genero } from 'app/models/genero';
-import { GeneroService } from 'app/services/genero.service';
-import { PersonaService } from 'app/services/persona.service';
-import { PaisService } from 'app/services/pais.service';
 import { Pais } from 'app/models/pais';
-import { DepartamentoService } from 'app/services/departamento.service';
 import { Departamento } from 'app/models/departamento';
 import { Municipio } from 'app/models/municipio';
-import { MunicipioService } from 'app/services/municipio.service';
 import { Persona } from 'app/models/persona';
-import { SucursalService } from 'app/services/sucursal.service';
 import { Sucursal } from 'app/models/sucursal';
+
+
 @Component({
-    selector: 'app-user-profile',
-    templateUrl: './user-profile.component.html',
-    styleUrls: ['./user-profile.component.css']
+  selector: 'app-sucursales',
+  templateUrl: './sucursales.component.html',
+  styleUrls: ['./sucursales.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class SucursalesComponent implements OnInit {
     hide: boolean;
     hide2: boolean;
     /**Formulario para crear personas */
-    personaForm: FormGroup;
+    sucursalForm: FormGroup;
    
 
     /** Listas*/
@@ -64,24 +65,16 @@ export class UserProfileComponent implements OnInit {
 
     ngOnInit() {
         /** Creamos el formulario junto a sus validaciones */
-        this.personaForm = this.formBuilder.group({
-            idPersona: [null],
+        this.sucursalForm = this.formBuilder.group({
             idSucursal: [null],
-            idRol: [null],
             idMunicipio: [ null, [Validators.required]],
             email: [ '', [Validators.required, Validators.email]],
-            primerNombre: ['', [Validators.required]],
-            segundoNombre: ['', [Validators.required]],
-            primerApellido: ['', [Validators.required]],
-            segundoApellido: ['', [Validators.required]],
-            fechaNacimiento: ['', [Validators.required]],
-            genero: ['', [Validators.required]],
-            numeroDocumento:['', [Validators.required]],
             celular: ['', [Validators.required]],
             telefono: ['', [Validators.required]],
             direccion: ['', [Validators.required]],
             barrio: ['', [Validators.required]],
             indicadorCliente: [true, [Validators.required]],
+            indicadorHabilitado: true,
           });
         
          this.generos.push({nombre: 'Masculino'});
@@ -137,14 +130,14 @@ export class UserProfileComponent implements OnInit {
         filterValue = filterValue.toLowerCase();
         this.dataSource.filter = filterValue;
     }
-    onSubmitPersona() {
-        console.log(this.personaForm.value);
-        if ( this.personaForm.valid ) {
-            this.personaService.create( this.personaForm.value ).subscribe(
+    onSubmitSucursal() {
+        console.log(this.sucursalForm.value);
+        if ( this.sucursalForm.valid ) {
+            this.sucursalesService.create( this.sucursalForm.value ).subscribe(
                 persona => {
-                    alert('Persona Creada');
+                    alert('Sucursal creada');
                 },
-                error => { 
+                error => {
                     console.log(error);
                 }
             );

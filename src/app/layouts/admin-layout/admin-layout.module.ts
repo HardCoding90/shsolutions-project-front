@@ -28,6 +28,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import { SucursalesComponent } from 'app/sucursales/sucursales.component';
 
 @NgModule({
     imports: [
@@ -62,6 +63,7 @@ import {MatTableModule} from '@angular/material/table';
         MapsComponent,
         NotificationsComponent,
         UpgradeComponent,
+        SucursalesComponent
     ]
 })
 
