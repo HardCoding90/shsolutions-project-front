@@ -25,6 +25,7 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SucursalesComponent } from './sucursales/sucursales.component';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
     imports: [

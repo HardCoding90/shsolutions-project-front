@@ -4,5 +4,7 @@ export interface Producto {
     indicadorHabilitado: boolean,
     indicadorServicio: boolean,
     marca: string;
-    producto: string
+    producto: string;
+    referencia: string;
+    valorUnidadVenta: number;
 }

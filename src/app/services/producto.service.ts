@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductoService {
   /***Definimos la ruta del servicio a consumir */
-  url = environment.apiUrl +  'productos';
+  url = environment.apiUrl +  '/productos';
 
   constructor( private http: HttpClient) {
 
@@ -20,7 +20,7 @@ export class ProductoService {
   }
   /** Obtener todos los registros habilitados */
   getAllEnabled() {
-    return this.http.get<Producto []>(this.url + '/enabled');
+    return this.http.get<Producto []>(this.url + '/findAll/enabled');
   }
   /** Obtener registro por id  */
   getById( id: string ) {
