@@ -30,6 +30,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { SucursalesComponent } from 'app/sucursales/sucursales.component';
 import { ProductsComponent } from 'app/products/products.component';
+import { ProveedoresComponent } from 'app/proveedores/proveedores.component';
 
 @NgModule({
     imports: [
@@ -65,7 +66,8 @@ import { ProductsComponent } from 'app/products/products.component';
         NotificationsComponent,
         UpgradeComponent,
         SucursalesComponent,
-        ProductsComponent
+        ProductsComponent,
+        ProveedoresComponent
     ]
 })
 

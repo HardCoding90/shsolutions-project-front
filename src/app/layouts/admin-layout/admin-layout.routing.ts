@@ -11,6 +11,7 @@ import {UpgradeComponent} from '../../upgrade/upgrade.component';
 import {CompanyProfileComponent} from '../../company-profile/company-profile.component';
 import { SucursalesComponent } from 'app/sucursales/sucursales.component';
 import { ProductsComponent } from 'app/products/products.component';
+import { ProveedoresComponent } from 'app/proveedores/proveedores.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -65,5 +66,6 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'maps', component: MapsComponent},
     {path: 'notifications', component: NotificationsComponent},
     {path: 'upgrade', component: UpgradeComponent},
-    {path: 'products', component: ProductsComponent}
+    {path: 'products', component: ProductsComponent},
+    {path: 'proveedor/:id', component: ProveedoresComponent}
 ];

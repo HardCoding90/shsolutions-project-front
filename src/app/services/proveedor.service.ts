@@ -26,8 +26,8 @@ export class ProveedorService {
     return this.http.get<Proveedor []>(this.url + '/findAll/enabled');
   }
   /** Obtener registro por id  */
-  getById( id: string ) {
-    return this.http.get<Proveedor>(this.url + '/' + id );
+  getById( id: number ) {
+    return this.http.get<Proveedor>(this.url + '/findById/' + id );
   }
   /** Crear registro */
   create( proveedor: Proveedor ) {
