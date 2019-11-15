@@ -12,6 +12,7 @@ import {CompanyProfileComponent} from '../../company-profile/company-profile.com
 import { SucursalesComponent } from 'app/sucursales/sucursales.component';
 import { ProductsComponent } from 'app/products/products.component';
 import { ProveedoresComponent } from 'app/proveedores/proveedores.component';
+import { OrdenesComponent } from 'app/ordenes/ordenes.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -67,5 +68,6 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'notifications', component: NotificationsComponent},
     {path: 'upgrade', component: UpgradeComponent},
     {path: 'products', component: ProductsComponent},
-    {path: 'proveedor/:id', component: ProveedoresComponent}
+    {path: 'proveedor/:id', component: ProveedoresComponent},
+    {path: 'ordenes', component: OrdenesComponent}
 ];

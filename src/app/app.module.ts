@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SucursalesComponent } from './sucursales/sucursales.component';
 import { ProductsComponent } from './products/products.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { OrdenesComponent } from './ordenes/ordenes.component';
 
 @NgModule({
     imports: [
@@ -44,7 +45,7 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
     ],
     declarations: [
         AppComponent,
-        AdminLayoutComponent
+        AdminLayoutComponent,
     ],
     providers: [ HttpClientModule ],
     bootstrap: [AppComponent]

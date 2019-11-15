@@ -31,6 +31,7 @@ import {MatTableModule} from '@angular/material/table';
 import { SucursalesComponent } from 'app/sucursales/sucursales.component';
 import { ProductsComponent } from 'app/products/products.component';
 import { ProveedoresComponent } from 'app/proveedores/proveedores.component';
+import { OrdenesComponent } from 'app/ordenes/ordenes.component';
 
 @NgModule({
     imports: [
@@ -67,7 +68,8 @@ import { ProveedoresComponent } from 'app/proveedores/proveedores.component';
         UpgradeComponent,
         SucursalesComponent,
         ProductsComponent,
-        ProveedoresComponent
+        ProveedoresComponent,
+        OrdenesComponent
     ]
 })
 

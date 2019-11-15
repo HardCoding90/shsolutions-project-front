@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
     {path: '/company-profile', title: 'Empresas', icon: 'business', class: ''},
     {path: '/sucursales', title: 'Sucursales', icon: 'home', class: ''},
     {path: '/products', title: 'Productos', icon: 'store_mall_directoryng', class: ''},
+    {path: '/ordenes', title: 'Ordenes', icon: 'add_shopping_cart', class: ''},
     /*{path: '/icons', title: 'Icons', icon: 'bubble_chart', class: ''},
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
