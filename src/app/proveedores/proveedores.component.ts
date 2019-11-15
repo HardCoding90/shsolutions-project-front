@@ -105,7 +105,20 @@ export class ProveedoresComponent implements OnInit {
         this.dataSourceProductos.filter = filterValue;
     }
 
-    pasarProducto( producto: Producto ) {
+   async registrarPrecio( producto: Producto ) {
+      const { value: number } = await Swal.fire({
+        title: 'Precio de compra',
+        input: 'number',
+      })
+      
+      if (!number) {
+        Swal.fire('Debes asignar un precio de venta!')
+      } else {
+        this.pasarProducto( producto , number );
+      }
+    }
+
+    pasarProducto( producto: Producto, precioVenta: number ) {
       const productoProveedor: ProductoProveedor = {
         idProductoProveedor: null,
         idProducto: producto.idProducto,
@@ -113,7 +126,7 @@ export class ProveedoresComponent implements OnInit {
         producto: producto.producto,
         marca: producto.marca,
         referencia: producto.referencia,
-        valorUnidadVenta: producto.valorUnidadVenta,
+        valorUnidadCompra: precioVenta,
         indicadorHabilitado: true
       }
       this.productosProveedor.push( productoProveedor );

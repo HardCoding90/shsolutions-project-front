@@ -17,6 +17,7 @@ import { MunicipioService } from 'app/services/municipio.service';
 import { SucursalService } from 'app/services/sucursal.service';
 import { PersonaService } from 'app/services/persona.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-company-profile',
@@ -57,6 +58,7 @@ export class CompanyProfileComponent implements OnInit {
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
     constructor( private formBuilder: FormBuilder,
+        private router: Router,
         private generoService: GeneroService,
         private paisService: PaisService,
         private departamentoService: DepartamentoService,
@@ -116,6 +118,12 @@ export class CompanyProfileComponent implements OnInit {
                 this.dataSourceProveedores = new MatTableDataSource( this.proveedores );
              }
          );
+    }
+    
+    irProductoProveedorPanel( proveedor: Proveedor ) {
+        if ( !proveedor.indicadorCliente ) {
+            this.router.navigateByUrl('/proveedor/' + proveedor.idProveedor);
+        }
     }
     seleccionarPais( event: any) {
         this.departamentos = [];

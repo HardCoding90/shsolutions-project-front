@@ -25,14 +25,14 @@
                                           <!-- ID Column -->
                                           <ng-container matColumnDef="id" >
                                               <th mat-header-cell *matHeaderCellDef> ID </th>
-                                              <td mat-cell *matCellDef="let element" (click)="pasarProducto(element)">
+                                              <td mat-cell *matCellDef="let element" (click)="registrarPrecio( element )">
                                                  {{element.idProducto }} </td>
                                           </ng-container>
 
                                           <!-- Nombre Column -->
                                           <ng-container matColumnDef="producto">
                                               <th mat-header-cell *matHeaderCellDef> Razón Social </th>
-                                              <td mat-cell *matCellDef="let element"  (click)="pasarProducto(element)"> 
+                                              <td mat-cell *matCellDef="let element"  (click)="registrarPrecio( element )"> 
                                                 {{element.producto}} </td>
                                           </ng-container>
 

@@ -191,37 +191,43 @@
                                             <!-- ID Column -->
                                             <ng-container matColumnDef="id">
                                                 <th mat-header-cell *matHeaderCellDef> ID </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.idProveedor }} </td>
+                                                <td mat-cell *matCellDef="let element" (click)="irProductoProveedorPanel(element)"> 
+                                                    {{element.idProveedor }} </td>
                                             </ng-container>
 
                                             <!-- Nombre Column -->
                                             <ng-container matColumnDef="razon">
                                                 <th mat-header-cell *matHeaderCellDef> Razón Social </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.razonSocial}} </td>
+                                                <td mat-cell *matCellDef="let element" (click)="irProductoProveedorPanel(element)">
+                                                     {{element.razonSocial}} </td>
                                             </ng-container>
 
                                             <!-- Apellidos Column -->
                                             <ng-container matColumnDef="nit">
                                                 <th mat-header-cell *matHeaderCellDef> Nit </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.nit}} </td>
+                                                <td mat-cell *matCellDef="let element" (click)="irProductoProveedorPanel(element)"> 
+                                                    {{element.nit}} </td>
                                             </ng-container>
 
                                               <!-- Email Column -->
                                               <ng-container matColumnDef="telefono">
                                                     <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-                                                    <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+                                                    <td mat-cell *matCellDef="let element" (click)="irProductoProveedorPanel(element)">
+                                                         {{element.telefono}} </td>
                                                 </ng-container>
 
                                             <!-- Email Column -->
                                             <ng-container matColumnDef="email">
                                                 <th mat-header-cell *matHeaderCellDef> Email </th>
-                                                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                                                <td mat-cell *matCellDef="let element" (click)="irProductoProveedorPanel(element)"> 
+                                                    {{element.email}} </td>
                                             </ng-container>
 
                                               <!-- Email Column -->
                                               <ng-container matColumnDef="celular">
                                                     <th mat-header-cell *matHeaderCellDef> Celular </th>
-                                                    <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
+                                                    <td mat-cell *matCellDef="let element" (click)="irProductoProveedorPanel(element)">
+                                                         {{element.celular}} </td>
                                                 </ng-container>
                                                 
                                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

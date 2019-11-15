@@ -6,5 +6,5 @@ export interface ProductoProveedor {
     marca: string;
     producto: string;
     referencia: string;
-    valorUnidadVenta: number;
+    valorUnidadCompra: number;
 }
