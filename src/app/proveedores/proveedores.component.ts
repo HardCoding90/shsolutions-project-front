@@ -145,6 +145,7 @@ export class ProveedoresComponent implements OnInit {
         this.dataSourceProductosProveedores = new MatTableDataSource( this.productosProveedor );
     }
     onSubmitProductosProveedor() {
+      /*
       if ( this.productosProveedor.length === 0 && this.todosProductoProveedor.length > 0 ) {
         this.todosProductoProveedor.forEach(element => {
           element.indicadorHabilitado = false;
@@ -168,6 +169,7 @@ export class ProveedoresComponent implements OnInit {
         }
         );
        } else { 
+         */
         this.productoProveedorService.bulk( this.productosProveedor).subscribe(
           res => {
             Swal.fire({
@@ -186,7 +188,7 @@ export class ProveedoresComponent implements OnInit {
               })
         }
         );
-       }
+       //}
     }
 
 }
