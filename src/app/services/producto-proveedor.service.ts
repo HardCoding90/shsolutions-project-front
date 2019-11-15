@@ -40,7 +40,7 @@ export class ProductoProveedorService {
       return this.http.get<ProductoProveedor []>(this.url + '/proveedor/' + idProveedor);
     }
   /** Crear registro */
-  bulk( productosProveedor: ProductoProveedor [] ) {
-    return this.http.post<ProductoProveedor [] >( this.url + '/saveAll', productosProveedor);
+  bulk( productosProveedor: ProductoProveedor [], idProveedor: any ) {
+    return this.http.post<ProductoProveedor [] >( this.url + '/saveAll/' + idProveedor, productosProveedor);
   }
 }

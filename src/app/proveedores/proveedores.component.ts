@@ -170,7 +170,7 @@ export class ProveedoresComponent implements OnInit {
         );
        } else { 
          */
-        this.productoProveedorService.bulk( this.productosProveedor).subscribe(
+        this.productoProveedorService.bulk( this.productosProveedor, this.proveedor.idProveedor).subscribe(
           res => {
             Swal.fire({
                 icon: 'success',
