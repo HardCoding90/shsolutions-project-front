@@ -11,7 +11,7 @@ import { Orden } from 'app/models/orden';
 @Injectable({
   providedIn: 'root'
 })
-export class OrdeService {
+export class OrdenService {
   /***Definimos la ruta del servicio a consumir */
   url = environment.apiUrl + '/ordenes';
 

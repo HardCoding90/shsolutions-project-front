@@ -3,6 +3,10 @@ export interface OrdenProducto {
     idProducto: number;
     idOrden: number;
     idProductoProveedor: number;
+    cantidad: number;
     valorCompraUnidad: number;
+    marca: string;
+    producto: string;
+    referencia: string;
     indicadorHabilitado: boolean;
 }

@@ -17,6 +17,10 @@ import { PersonaService } from 'app/services/persona.service';
 import { forkJoin } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Sucursal } from 'app/models/sucursal';
+import { OrdenProducto } from 'app/models/ordenes-productos';
+import { ProductoProveedor } from 'app/models/producto-proveedor';
+import { ProductoProveedorService } from 'app/services/producto-proveedor.service';
+import { OrdenService } from 'app/services/orden.service';
 
 @Component({
   selector: 'app-ordenes',
@@ -27,7 +31,7 @@ export class OrdenesComponent implements OnInit {
   hide: boolean;
   hide2: boolean;
   /**Formulario para crear personas */
-  proveedorForm: FormGroup;
+  ordenForm: FormGroup;
 
   /** Listas*/
   paises: Pais [] = [];
@@ -39,6 +43,11 @@ export class OrdenesComponent implements OnInit {
   proveedores: Proveedor [] = [];
   todosProveedores: Proveedor [] = [];
 
+  todosProductoProveedor: ProductoProveedor [] = [];
+  productosProveedor: ProductoProveedor [] = [];
+  ordenesProductos: OrdenProducto [] = [];
+  idSucursalSeleccionada: number;
+
   /** Lista tipos documento */
 
   // controles filtro empresa
@@ -47,9 +56,11 @@ export class OrdenesComponent implements OnInit {
 
 
 
-  displayedColumns: string[] = ['id', 'razon', 'nit', 'telefono', 'email', 'celular'];
-  dataSource = null;
-  dataSourceProveedores = null;
+  displayedColumns: string[] = ['id', 'producto', 'referencia', 'valorCompraUnidad'];
+  displayedColumns2: string[] = ['id', 'producto', 'referencia', 'valorUnidadCompra'];
+
+  dataSourceProductosProveedor = null;
+  dataSourceOrdenProductos = null;
 
   // new MatTableDataSource(ELEMENT_DATA);
 
@@ -64,32 +75,22 @@ export class OrdenesComponent implements OnInit {
       private municipioService: MunicipioService,
       private sucursalesService: SucursalService,
       private proveedorService: ProveedorService,
+      private productoProveedorService: ProductoProveedorService,
+      private ordenService: OrdenService,
       private personaService: PersonaService) {
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-  } /*Para tener en cuenta*/
-
   ngOnInit() {
       /** Creamos el formulario junto a sus validaciones */
-      this.proveedorForm = this.formBuilder.group({
-          idProveedor: [null],
-          idMunicipio: [ null, [Validators.required]],
-          email: [ '', [Validators.required, Validators.email]],
-          nit: ['', [Validators.required]],
-          razonSocial:['', [Validators.required]],
-          celular: ['', [Validators.required]],
-          telefono: ['', [Validators.required]],
-          direccion: ['', [Validators.required]],
-          barrio: ['', [Validators.required]],
-          indicadorCliente: [true, [Validators.required]],
+      this.ordenForm = this.formBuilder.group({
+          idOrden: [null],
+          idSucursal: [ null, [Validators.required]],
+          ordenesProductos: [null, [Validators.required]],
+          fechaOrden: [null],
+          indicadorRecibida: [true],
           indicadorHabilitado: [true],
         });
   
-
        /** Se carga la data inicial */
        forkJoin(this.paisService.getAllEnabled(),
        this.sucursalesService.getAllEnabled(),
@@ -111,36 +112,35 @@ export class OrdenesComponent implements OnInit {
               );
               this.todosEmpleados = this.empleados;
 
-              //this.dataSource = new MatTableDataSource(this.personas);
-              this.dataSourceProveedores = new MatTableDataSource( this.proveedores );
            }
        );
   }
-  onSubmitOrden(){
-    
-  }
+
   irProductoProveedorPanel( proveedor: Proveedor ) {
       if ( !proveedor.indicadorCliente ) {
           this.router.navigateByUrl('/proveedor/' + proveedor.idProveedor);
       }
   }
-  seleccionarPais( event: any) {
-      this.departamentos = [];
-      this.departamentoService.getByPais(event).subscribe(
-          departamentos => {
-              this.departamentos = departamentos;
-          }
-      );
+  seleccionarSucursal( event: any) {
+    this.idSucursalSeleccionada = event;
+    this.ordenForm.controls['idSucursal'].setValue(event);
   }
 
-  seleccionarDepartamento( event: any) {
-      this.municipios = [];
-      this.municipioService.getByDepartamento( event ).subscribe(
-          mun => {
-              this.municipios = mun;
+  seleccionarProveedor( event: any ) {
+      this.productosProveedor = [];
+      this.productoProveedorService.getByProveedor( event ).subscribe(
+          res => {
+            this.productosProveedor = res;
+            this.todosProductoProveedor = res;
+            this.dataSourceProductosProveedor = new MatTableDataSource(this.productosProveedor);
+            this.dataSourceOrdenProductos = new MatTableDataSource( this.ordenesProductos );
+
+            this.dataSourceOrdenProductos.paginator = this.paginator;
+            this.dataSourceOrdenProductos.sort = this.sort;
+            this.dataSourceProductosProveedor.paginator = this.paginator;
+            this.dataSourceProductosProveedor.sort = this.sort;
           }
       );
-
   }
   filtroEmpresas() {
       this.proveedores = this.todosProveedores;
@@ -160,22 +160,67 @@ export class OrdenesComponent implements OnInit {
               }
           }
       }
-      this.dataSourceProveedores = new MatTableDataSource( this.proveedores );
-  
-      
+      this.dataSourceOrdenProductos = new MatTableDataSource( this.proveedores );
   }
+
   applyFilter(filterValue: string) {
       filterValue = filterValue.trim();
       filterValue = filterValue.toLowerCase();
-      this.dataSourceProveedores.filter = filterValue;
+      this.dataSourceProductosProveedor.filter = filterValue;
   }
-  onSubmitProveedor() {
-      if ( this.proveedorForm.valid ) {
-          this.proveedorService.create( this.proveedorForm.value ).subscribe(
+  agregarProducto( productoProveedor: ProductoProveedor, cantida: number ){
+    const ordenProducto: OrdenProducto = {
+        idOrdenProducto: null,
+        idProducto: productoProveedor.idProducto,
+        idOrden: null,
+        idProductoProveedor: productoProveedor.idProductoProveedor,
+        producto: productoProveedor.producto,
+        marca: productoProveedor.marca,
+        referencia: productoProveedor.referencia,
+        valorCompraUnidad: productoProveedor.valorUnidadCompra,
+        cantidad: cantida,
+        indicadorHabilitado: true
+      }
+    this.ordenesProductos.push(ordenProducto);
+    this.productosProveedor = this.productosProveedor.filter(
+        x => x.idProductoProveedor !== productoProveedor.idProductoProveedor
+    );
+    this.dataSourceProductosProveedor = new MatTableDataSource(this.productosProveedor);
+    this.dataSourceOrdenProductos = new MatTableDataSource( this.ordenesProductos );
+  }
+  devolverProducto( ordenProducto: OrdenProducto ) {
+    // eliminamos el registro de la lista
+    this.ordenesProductos = this.ordenesProductos.filter(
+        x => x.idProductoProveedor !== ordenProducto.idProductoProveedor
+    );
+    const productoProveedor = this.todosProductoProveedor.find(
+        x => x.idProductoProveedor === ordenProducto.idProductoProveedor
+    );
+    this.productosProveedor.push(productoProveedor);
+
+    this.dataSourceProductosProveedor = new MatTableDataSource(this.productosProveedor);
+    this.dataSourceOrdenProductos = new MatTableDataSource( this.ordenesProductos );
+  }
+  async registrarCantidad( productoProveedor: ProductoProveedor ) {
+    const { value: number } = await Swal.fire({
+      title: 'Cantidad',
+      input: 'number',
+    })
+    
+    if (!number) {
+      Swal.fire('Debes asignar una cantidad!')
+    } else {
+      this.agregarProducto( productoProveedor , number );
+    }
+  }
+  onSubmitOrden() {
+    this.ordenForm.controls['ordenesProductos'].setValue(this.ordenesProductos);
+      if ( this.ordenForm.valid ) {
+          this.ordenService.create( this.ordenForm.value ).subscribe(
               res => {
                   Swal.fire({
                       icon: 'success',
-                      title: 'Empresa Agregada!',
+                      title: 'Orden realizada!',
                       showConfirmButton: false,
                       timer: 1500
                     })
@@ -183,7 +228,7 @@ export class OrdenesComponent implements OnInit {
               error => {
                   Swal.fire({
                       icon: 'error',
-                      title: 'Ups, hubo un error al agregar!',
+                      title: 'Ups, hubo un error al generar la orden!',
                       showConfirmButton: false,
                       timer: 1500
                     })
