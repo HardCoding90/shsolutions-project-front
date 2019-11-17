@@ -14,6 +14,7 @@ import { Departamento } from 'app/models/departamento';
 import { Municipio } from 'app/models/municipio';
 import { Persona } from 'app/models/persona';
 import { Sucursal } from 'app/models/sucursal';
+import Swal from "sweetalert2";
 
 
 @Component({
@@ -135,10 +136,20 @@ export class SucursalesComponent implements OnInit {
         if ( this.sucursalForm.valid ) {
             this.sucursalesService.create( this.sucursalForm.value ).subscribe(
                 persona => {
-                    alert('Sucursal creada');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sucursal agregada!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 },
                 error => {
-                    console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ups, hubo un error al agregar!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             );
         }
