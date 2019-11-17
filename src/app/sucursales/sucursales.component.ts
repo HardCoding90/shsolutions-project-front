@@ -14,7 +14,7 @@ import { Departamento } from 'app/models/departamento';
 import { Municipio } from 'app/models/municipio';
 import { Persona } from 'app/models/persona';
 import { Sucursal } from 'app/models/sucursal';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 
 @Component({
