@@ -15,6 +15,7 @@ import { MunicipioService } from 'app/services/municipio.service';
 import { Persona } from 'app/models/persona';
 import { SucursalService } from 'app/services/sucursal.service';
 import { Sucursal } from 'app/models/sucursal';
+import Swal from 'sweetalert2';
 @Component({
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
@@ -150,10 +151,20 @@ export class UserProfileComponent implements OnInit {
         if ( this.personaForm.valid ) {
             this.personaService.create( this.personaForm.value ).subscribe(
                 persona => {
-                    alert('Persona Creada');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Persona agregada!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 },
-                error => { 
-                    console.log(error);
+                error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ups, hubo un error al agregar!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
             );
         }
