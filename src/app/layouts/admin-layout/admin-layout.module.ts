@@ -32,6 +32,7 @@ import { SucursalesComponent } from 'app/sucursales/sucursales.component';
 import { ProductsComponent } from 'app/products/products.component';
 import { ProveedoresComponent } from 'app/proveedores/proveedores.component';
 import { OrdenesComponent } from 'app/ordenes/ordenes.component';
+import { VentasComponent } from 'app/ventas/ventas.component';
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { OrdenesComponent } from 'app/ordenes/ordenes.component';
         SucursalesComponent,
         ProductsComponent,
         ProveedoresComponent,
-        OrdenesComponent
+        OrdenesComponent,
+        VentasComponent
     ]
 })
 

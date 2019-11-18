@@ -28,6 +28,7 @@ import { SucursalesComponent } from './sucursales/sucursales.component';
 import { ProductsComponent } from './products/products.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { OrdenesComponent } from './ordenes/ordenes.component';
+import { VentasComponent } from './ventas/ventas.component';
 
 @NgModule({
     imports: [

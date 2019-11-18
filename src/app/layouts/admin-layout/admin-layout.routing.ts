@@ -13,6 +13,7 @@ import { SucursalesComponent } from 'app/sucursales/sucursales.component';
 import { ProductsComponent } from 'app/products/products.component';
 import { ProveedoresComponent } from 'app/proveedores/proveedores.component';
 import { OrdenesComponent } from 'app/ordenes/ordenes.component';
+import { VentasComponent } from 'app/ventas/ventas.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -69,5 +70,6 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'upgrade', component: UpgradeComponent},
     {path: 'products', component: ProductsComponent},
     {path: 'proveedor/:id', component: ProveedoresComponent},
-    {path: 'ordenes', component: OrdenesComponent}
+    {path: 'ordenes', component: OrdenesComponent},
+    {path: 'ventas', component: VentasComponent}
 ];
