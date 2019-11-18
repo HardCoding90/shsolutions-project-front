@@ -4,4 +4,5 @@ export interface Venta {
     idPersonaVenta: number;
     idSucursal: number;
     indicadorHabilitado: boolean;
+    productosVentasDTOList: any [];
 }

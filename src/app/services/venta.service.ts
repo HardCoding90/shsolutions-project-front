@@ -17,11 +17,11 @@ export class VentaService {
   }
   /** Obtener todos los registros */
   getAll(): Observable<Venta []> {
-    return this.http.get<Venta []>(this.url);
+    return this.http.get<Venta []>(this.url + '/findAll');
   }
   /** Obtener todos los registros habilitados */
   getAllEnabled() {
-    return this.http.get<Venta []>(this.url + '/enabled');
+    return this.http.get<Venta []>(this.url + '/findAll/enabled');
   }
   /** Obtener registro por id  */
   getById( id: string ) {
