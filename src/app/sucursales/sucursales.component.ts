@@ -39,6 +39,7 @@ export class SucursalesComponent implements OnInit {
     empleados: Persona [] = [];
     sucursales: Sucursal [] = [];
     inventarios: Inventario [] = [];
+    inventariosTodos: Inventario [] = [];
     /** Lista tipos documento */
 
 
@@ -47,7 +48,7 @@ export class SucursalesComponent implements OnInit {
     dataSource = null;
     dataSourceEmpleados = null;
     /*dataSourceInventario: string[] = ['id', 'producto', 'cantidad'];*/
-    dataSourceInventario = this.sucursalesService.getAllInventario();
+    dataSourceInventario = null;
 
     // new MatTableDataSource(ELEMENT_DATA);
 
@@ -90,29 +91,28 @@ export class SucursalesComponent implements OnInit {
          /** Se carga la data inicial */
          forkJoin(this.paisService.getAllEnabled(),
          this.personaService.getAllEnabled(),
-         this.sucursalesService.getAllEnabled()
+         this.sucursalesService.getAllEnabled(),
+         this.sucursalesService.getAllInventario()
          ).subscribe(
-             ([paises, personas, sucursales]) => {
+             ([paises, personas, sucursales, inventarios]) => {
                 this.paises = paises;
                 this.personas = personas;
                 this.sucursales = sucursales;
-                // @ts-ignore
-                 this.inventarios = this.sucursalesService.getAllInventario();
+                 this.inventarios = inventarios;
                 console.log(this.sucursales);
                 /*** Se filtra personas cliente */
                 this.personas = this.personas.filter(
                     x => x.indicadorCliente === true
                 );
-
+                this.inventariosTodos = inventarios;
                 /*** Se filtran empleados */
                 this.empleados = personas;
                 this.empleados = this.empleados.filter(
                     x => x.indicadorCliente === false
                 );
-
                 this.dataSource = new MatTableDataSource(this.sucursales);
                 this.dataSourceEmpleados = new MatTableDataSource( this.empleados );
-
+                this.dataSourceInventario = new MatTableDataSource( this.inventarios );
              }
          );
     }
@@ -165,10 +165,10 @@ export class SucursalesComponent implements OnInit {
     }
 
     filtrarPorSucursal( idSucursal: any ) {
+        this.inventarios = this.inventariosTodos;
         this.inventarios = this.inventarios.filter(
             x => x.idSucursal === idSucursal
         );
-        // @ts-ignore
         this.dataSourceInventario = this.inventarios
     }
 }
