@@ -3,7 +3,7 @@ import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Sucursal } from 'app/models/sucursal';
-import {Inventario} from '../models/Inventario';
+import {Inventario} from '../models/inventario';
 
 @Injectable({
   providedIn: 'root'
