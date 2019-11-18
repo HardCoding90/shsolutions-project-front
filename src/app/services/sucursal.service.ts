@@ -3,6 +3,7 @@ import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Sucursal } from 'app/models/sucursal';
+import {Inventario} from '../models/inventario';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { Sucursal } from 'app/models/sucursal';
 export class SucursalService {
   /***Definimos la ruta del servicio a consumir */
   url = environment.apiUrl + '/sucursales';
+  urlInventarios = environment.apiUrl + '/inventarios';
 
   constructor( private http: HttpClient) {
 
@@ -17,6 +19,10 @@ export class SucursalService {
   /** Obtener todos los registros */
   getAll(): Observable<Sucursal []> {
     return this.http.get<Sucursal []>(this.url + '/findAll');
+  }
+
+  getAllInventario(): Observable<Inventario []> {
+    return this.http.get<Inventario []>(this.urlInventarios + '/findAll');
   }
   /** Obtener todos los registros habilitados */
   getAllEnabled() {

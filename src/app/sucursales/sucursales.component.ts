@@ -7,13 +7,14 @@ import { GeneroService } from 'app/services/genero.service';
 import { MunicipioService } from 'app/services/municipio.service';
 import { SucursalService } from 'app/services/sucursal.service';
 import { PersonaService } from 'app/services/persona.service';
-import { from, forkJoin } from 'rxjs';
+import {from, forkJoin, Observable} from 'rxjs';
 import { Genero } from 'app/models/genero';
 import { Pais } from 'app/models/pais';
 import { Departamento } from 'app/models/departamento';
 import { Municipio } from 'app/models/municipio';
 import { Persona } from 'app/models/persona';
 import { Sucursal } from 'app/models/sucursal';
+import { Inventario } from 'app/models/inventario';
 import Swal from 'sweetalert2';
 
 
@@ -37,12 +38,17 @@ export class SucursalesComponent implements OnInit {
     personas: Persona [] = [];
     empleados: Persona [] = [];
     sucursales: Sucursal [] = [];
+    inventarios: Inventario [] = [];
+    inventariosTodos: Inventario [] = [];
     /** Lista tipos documento */
 
 
     displayedColumns: string[] = ['id', 'nombre', 'tel', 'email'];
+    displayedColumnsInventarios: string[] = ['id', 'producto', 'cantidad'];
     dataSource = null;
     dataSourceEmpleados = null;
+    /*dataSourceInventario: string[] = ['id', 'producto', 'cantidad'];*/
+    dataSourceInventario = null;
 
     // new MatTableDataSource(ELEMENT_DATA);
 
@@ -65,6 +71,7 @@ export class SucursalesComponent implements OnInit {
     } /*Para tener en cuenta*/
 
     ngOnInit() {
+
         /** Creamos el formulario junto a sus validaciones */
         this.sucursalForm = this.formBuilder.group({
             idSucursal: [null],
@@ -84,26 +91,28 @@ export class SucursalesComponent implements OnInit {
          /** Se carga la data inicial */
          forkJoin(this.paisService.getAllEnabled(),
          this.personaService.getAllEnabled(),
-         this.sucursalesService.getAllEnabled()
+         this.sucursalesService.getAllEnabled(),
+         this.sucursalesService.getAllInventario()
          ).subscribe(
-             ([paises, personas, sucursales]) => {
+             ([paises, personas, sucursales, inventarios]) => {
                 this.paises = paises;
                 this.personas = personas;
                 this.sucursales = sucursales;
+                 this.inventarios = inventarios;
                 console.log(this.sucursales);
                 /*** Se filtra personas cliente */
                 this.personas = this.personas.filter(
                     x => x.indicadorCliente === true
                 );
-
+                this.inventariosTodos = inventarios;
                 /*** Se filtran empleados */
                 this.empleados = personas;
                 this.empleados = this.empleados.filter(
                     x => x.indicadorCliente === false
                 );
-
                 this.dataSource = new MatTableDataSource(this.sucursales);
                 this.dataSourceEmpleados = new MatTableDataSource( this.empleados );
+                this.dataSourceInventario = new MatTableDataSource( this.inventarios );
              }
          );
     }
@@ -153,6 +162,14 @@ export class SucursalesComponent implements OnInit {
                 }
             );
         }
+    }
+
+    filtrarPorSucursal( idSucursal: any ) {
+        this.inventarios = this.inventariosTodos;
+        this.inventarios = this.inventarios.filter(
+            x => x.idSucursal === idSucursal
+        );
+        this.dataSourceInventario = this.inventarios
     }
 }
 
