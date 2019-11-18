@@ -7,13 +7,14 @@ import { GeneroService } from 'app/services/genero.service';
 import { MunicipioService } from 'app/services/municipio.service';
 import { SucursalService } from 'app/services/sucursal.service';
 import { PersonaService } from 'app/services/persona.service';
-import { from, forkJoin } from 'rxjs';
+import {from, forkJoin, Observable} from 'rxjs';
 import { Genero } from 'app/models/genero';
 import { Pais } from 'app/models/pais';
 import { Departamento } from 'app/models/departamento';
 import { Municipio } from 'app/models/municipio';
 import { Persona } from 'app/models/persona';
 import { Sucursal } from 'app/models/sucursal';
+import { Inventario } from 'app/models/inventario';
 import Swal from 'sweetalert2';
 
 
@@ -37,12 +38,16 @@ export class SucursalesComponent implements OnInit {
     personas: Persona [] = [];
     empleados: Persona [] = [];
     sucursales: Sucursal [] = [];
+    inventarios: Inventario [] = [];
     /** Lista tipos documento */
 
 
     displayedColumns: string[] = ['id', 'nombre', 'tel', 'email'];
+    displayedColumnsInventarios: string[] = ['id', 'producto', 'cantidad'];
     dataSource = null;
     dataSourceEmpleados = null;
+    /*dataSourceInventario: string[] = ['id', 'producto', 'cantidad'];*/
+    dataSourceInventario = this.sucursalesService.getAllInventario();
 
     // new MatTableDataSource(ELEMENT_DATA);
 
@@ -65,6 +70,7 @@ export class SucursalesComponent implements OnInit {
     } /*Para tener en cuenta*/
 
     ngOnInit() {
+
         /** Creamos el formulario junto a sus validaciones */
         this.sucursalForm = this.formBuilder.group({
             idSucursal: [null],
@@ -90,6 +96,8 @@ export class SucursalesComponent implements OnInit {
                 this.paises = paises;
                 this.personas = personas;
                 this.sucursales = sucursales;
+                // @ts-ignore
+                 this.inventarios = this.sucursalesService.getAllInventario();
                 console.log(this.sucursales);
                 /*** Se filtra personas cliente */
                 this.personas = this.personas.filter(
@@ -104,6 +112,7 @@ export class SucursalesComponent implements OnInit {
 
                 this.dataSource = new MatTableDataSource(this.sucursales);
                 this.dataSourceEmpleados = new MatTableDataSource( this.empleados );
+
              }
          );
     }
@@ -153,6 +162,14 @@ export class SucursalesComponent implements OnInit {
                 }
             );
         }
+    }
+
+    filtrarPorSucursal( idSucursal: any ) {
+        this.inventarios = this.inventarios.filter(
+            x => x.idSucursal === idSucursal
+        );
+        // @ts-ignore
+        this.dataSourceInventario = this.inventarios
     }
 }
 
