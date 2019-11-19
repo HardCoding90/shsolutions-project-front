@@ -27,7 +27,7 @@
                                             <mat-label>Sucursal</mat-label>
                                             <mat-select formControlName="idSucursal" [disabled]="DTOproductosCarrito.length > 0" (selectionChange)="seleccionarSucursal($event.value)" >
                                                  <mat-option *ngFor="let sucu of sucursales" [value]="sucu.idSucursal">
-                                                     {{sucu.barrio + ' - ' +sucu.direccion}}
+                                                     {{sucu.municipio + ' - ' + sucu.barrio + ' - ' +sucu.direccion}}
                                                  </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -97,7 +97,7 @@
                                                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                                                 </table>
           
-                                                <mat-paginator [pageSizeOptions]="[5,10]" showFirstLastButtons></mat-paginator>
+                                                
                                             </div>
                                             <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Registrar
                                             </button>-->

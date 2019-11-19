@@ -11,6 +11,9 @@ import { Persona } from 'app/models/persona';
 import { Sucursal } from 'app/models/sucursal';
 import { VentaService } from 'app/services/venta.service';
 import { Venta } from 'app/models/venta';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-ventas',
@@ -47,6 +50,8 @@ export class VentasComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginatorVentas: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sortVentas: MatSort;
 
   constructor( private formBuilder: FormBuilder,
       private sucursalService: SucursalService,
@@ -56,6 +61,7 @@ export class VentasComponent implements OnInit {
   }
 
   ngOnInit() {
+    //this.generatePdf();
       /** Creamos el formulario junto a sus validaciones */
       this.ventaForm = this.formBuilder.group({
           idVenta: [null],
@@ -135,6 +141,61 @@ export class VentasComponent implements OnInit {
     this.ventaForm.reset();
     this.dataSource = new MatTableDataSource(this.productos);
   }
+  generatePdf(){
+    var sourceData = this.DTOproductosCarrito;
+    var bodyData = [];
+    var dataRowHeader = [];
+    dataRowHeader.push('Nombre');
+    dataRowHeader.push('Cantidad');
+    dataRowHeader.push('Valor Unitario');
+    dataRowHeader.push('Valor total');
+    bodyData.push(dataRowHeader)
+
+  sourceData.forEach(function(sourceRow) {
+  var dataRow = [];
+
+  dataRow.push(sourceRow.producto.producto + ' - ' + sourceRow.producto.marca 
+  + ' - '+ sourceRow.producto.referencia);
+  dataRow.push(sourceRow.cantidad);
+  dataRow.push(sourceRow.producto.valorUnidadVenta);
+  dataRow.push(sourceRow.producto.valorUnidadVenta * sourceRow.cantidad);
+  bodyData.push(dataRow)
+
+});
+  
+    const documentDefinition = {
+      content: [
+        { text: 'Factura de compra', style: 'header' },
+        { text:  new Date().toString(), style: 'anotherStyle' },
+        {
+          table: {
+            body: bodyData
+          }
+        },
+        { text: 'Total: ' + this.totalCompras.toString(), style: 'total' },
+      ],
+    
+      styles: {
+        header: {
+          fontSize: 22,
+          bold: true,
+          color: '#f44336',
+          margin: [5, 5] 
+        },
+        anotherStyle: {
+          fontSize: 16,
+          margin: [5, 5] 
+        },
+        total:{
+          fontSize: 19,
+          bold: true,
+          color: '#f44336',
+          margin: [5, 5] 
+        }
+      }
+       };
+    pdfMake.createPdf(documentDefinition).open();
+   }
 
   async seleccionarProducto( producto: Producto ) {
     const { value: number } = await Swal.fire({
@@ -195,7 +256,13 @@ export class VentasComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500
                 });
+                this.generatePdf();
                this.limpiarFormulario();
+               this.ventaService.getAllEnabled().subscribe(
+                 res => {
+                  this.todasVentas = res;
+                 }
+               );
           },
           error => {
               Swal.fire({
