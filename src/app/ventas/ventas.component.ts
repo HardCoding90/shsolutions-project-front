@@ -10,6 +10,7 @@ import { PersonaService } from 'app/services/persona.service';
 import { Persona } from 'app/models/persona';
 import { Sucursal } from 'app/models/sucursal';
 import { VentaService } from 'app/services/venta.service';
+import { Venta } from 'app/models/venta';
 
 @Component({
   selector: 'app-ventas',
@@ -33,12 +34,14 @@ export class VentasComponent implements OnInit {
   DTOproductosCarrito: any [] = [];
   productosCarrito: Producto [] = [];
   totalCompras: number = 0;
+  todasVentas: Venta [] = [];
   /** Lista tipos documento */
 
 
   displayedColumns: string[] = ['id', 'producto', 'referencia', 'marca', 'valor'];
+  displayedColumnsVentas: string[] = ['id', 'fecha', 'vendedor',  'valor'];
   dataSource = null;
-  dataSourceServicios = null;
+  dataSourceVentas = null;
 
   // new MatTableDataSource(ELEMENT_DATA);
 
@@ -65,12 +68,14 @@ export class VentasComponent implements OnInit {
        /** Se carga la data inicial */
        forkJoin(
        this.personaService.getAllEnabled(),
-       this.sucursalService.getAllEnabled()
+       this.sucursalService.getAllEnabled(),
+       this.ventaService.getAllEnabled()
        ).subscribe(
-           ([ persona, sucursales ]) => {
+           ([ persona, sucursales, ventas ]) => {
              this.personas = persona;
              this.sucursales = sucursales;
-              
+             this.todasVentas = ventas;
+             console.log(this.todasVentas);
               // se filtran los productos
               this.productos = this.todosProductos.filter(
                 x => x.indicadorServicio === false
@@ -80,11 +85,11 @@ export class VentasComponent implements OnInit {
                 x => x.indicadorServicio === true
               );
               this.dataSource = new MatTableDataSource(this.productos);
-              this.dataSourceServicios = new MatTableDataSource(this.servicios);
+              this.dataSourceVentas = new MatTableDataSource(this.todasVentas);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;
-              this.dataSourceServicios.paginator = this.paginator;
-              this.dataSourceServicios.sort = this.sort;
+              this.dataSourceVentas.paginator = this.paginator;
+              this.dataSourceVentas.sort = this.sort;
            }
        );
   }
@@ -96,10 +101,10 @@ export class VentasComponent implements OnInit {
       this.dataSource.filter = filterValue;
   }
 
-  applyFilterServicios(filterValue: string) {
+  applyFilterVentas(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
-    this.dataSourceServicios.filter = filterValue;
+    this.dataSourceVentas.filter = filterValue;
   }
 
   seleccionarSucursal( event: any ){
@@ -140,7 +145,13 @@ export class VentasComponent implements OnInit {
     if (!number) {
       Swal.fire('Debes asignar una cantidad!')
     } else {
-      this.agregarProductoAlCarro( producto , number );
+      if ( number <= producto.cantidadExistente){
+        this.agregarProductoAlCarro( producto , number );
+      } else {
+        Swal.fire('No se puede agregar, solo existen '+ producto.cantidadExistente + 
+        ' unidades del producto!')
+      }
+      
     }
   }
   agregarProductoAlCarro( producto: Producto, cantidad: number){
@@ -149,8 +160,16 @@ export class VentasComponent implements OnInit {
       producto: producto
     }
     this.totalCompras = this.totalCompras + cantidad * producto.valorUnidadVenta;
-    this.DTOproductosCarrito.push(productoAgregar);
-    this.productosCarrito.push(producto);
+    const productoExistente = this.DTOproductosCarrito.find(
+      x => x.producto.idProducto === producto.idProducto
+    );
+    if (productoExistente) {
+      this.DTOproductosCarrito = this.DTOproductosCarrito.filter( x => x.producto.idProducto !== producto.idProducto);
+      this.DTOproductosCarrito.push(productoAgregar);
+    } else {
+      this.DTOproductosCarrito.push(productoAgregar);
+     }
+    
   }
 
   onSubmitVenta() {
