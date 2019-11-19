@@ -9,6 +9,7 @@ import { SucursalService } from 'app/services/sucursal.service';
 import { PersonaService } from 'app/services/persona.service';
 import { Persona } from 'app/models/persona';
 import { Sucursal } from 'app/models/sucursal';
+import { VentaService } from 'app/services/venta.service';
 
 @Component({
   selector: 'app-ventas',
@@ -29,7 +30,9 @@ export class VentasComponent implements OnInit {
   personas: Persona [] = [];
   personasSucursal: Persona [] = [];
   sucursales: Sucursal [] = [];
-
+  DTOproductosCarrito: any [] = [];
+  productosCarrito: Producto [] = [];
+  totalCompras: number = 0;
   /** Lista tipos documento */
 
 
@@ -45,6 +48,7 @@ export class VentasComponent implements OnInit {
   constructor( private formBuilder: FormBuilder,
       private sucursalService: SucursalService,
       private personaService: PersonaService,
+      private ventaService: VentaService,
       private productoService: ProductoService) {
   }
 
@@ -59,12 +63,11 @@ export class VentasComponent implements OnInit {
         });
 
        /** Se carga la data inicial */
-       forkJoin(this.productoService.getAllEnabled(),
+       forkJoin(
        this.personaService.getAllEnabled(),
        this.sucursalService.getAllEnabled()
        ).subscribe(
-           ([productos, persona, sucursales ]) => {
-             this.todosProductos = productos
+           ([ persona, sucursales ]) => {
              this.personas = persona;
              this.sucursales = sucursales;
               
@@ -100,21 +103,72 @@ export class VentasComponent implements OnInit {
   }
 
   seleccionarSucursal( event: any ){
+    this.DTOproductosCarrito = [];
     this.ventaForm.controls['idPersonaVenta'].setValue(null);
+    this.ventaForm.controls['idSucursal'].setValue(event);
     this.personasSucursal = this.personas.filter(
       x => x.idSucursal === event && !x.indicadorCliente
     );
+    if (this.personasSucursal.length > 0 ){
+      this.productos = [];
+      this.productoService.getBySucursal(event).subscribe(
+        res => {
+          this.productos = res;
+          this.dataSource = new MatTableDataSource(this.productos);
+        }
+      );
+    }
   }
   
   seleccionarPersona( event: any ){
     this.ventaForm.controls['idPersonaVenta'].setValue(event);
-    
-
   }
 
-  onSubmitProducto() {
+  limpiarFormulario(){
+    this.DTOproductosCarrito = [];
+    this.productos = [];
+    this.ventaForm.reset();
+    this.dataSource = new MatTableDataSource(this.productos);
+  }
+
+  async seleccionarProducto( producto: Producto ) {
+    const { value: number } = await Swal.fire({
+      title: 'Cantidad',
+      input: 'number',
+    })
+    
+    if (!number) {
+      Swal.fire('Debes asignar una cantidad!')
+    } else {
+      this.agregarProductoAlCarro( producto , number );
+    }
+  }
+  agregarProductoAlCarro( producto: Producto, cantidad: number){
+    const productoAgregar = {
+      cantidad: cantidad,
+      producto: producto
+    }
+    this.totalCompras = this.totalCompras + cantidad * producto.valorUnidadVenta;
+    this.DTOproductosCarrito.push(productoAgregar);
+    this.productosCarrito.push(producto);
+  }
+
+  onSubmitVenta() {
+    const venta = this.ventaForm.getRawValue();
+    let productos : any = [];
+    for (let index = 0; index < this.DTOproductosCarrito.length; index++) {
+      const element = this.DTOproductosCarrito[index];
+      productos.push(
+        {
+          idProducto: element.producto.idProducto,
+          cantidad: element.cantidad
+        }
+      );
+    }
+    this.ventaForm.controls['productosVentasDTOList'].setValue(productos);
+    venta.productosVentasDTOList = productos;
       if ( this.ventaForm.valid ) {
-          this.productoService.create( this.ventaForm.value ).subscribe(
+          this.ventaService.create( this.ventaForm.value ).subscribe(
             res => {
               Swal.fire({
                   icon: 'success',
@@ -122,12 +176,12 @@ export class VentasComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500
                 });
-                this.ventaForm.reset();
+               this.limpiarFormulario();
           },
           error => {
               Swal.fire({
                   icon: 'error',
-                  title: 'Ups, hubo un error al agregar!',
+                  title: 'Ups, hubo un error al realizar la venta!',
                   showConfirmButton: false,
                   timer: 1500
                 })

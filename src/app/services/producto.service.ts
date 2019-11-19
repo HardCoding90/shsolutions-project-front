@@ -34,5 +34,8 @@ export class ProductoService {
   update( producto: Producto) {
     return this.http.put<Producto>(this.url, producto );
   }
-
+  /** Obtener todos por idSucursal */
+  getBySucursal( idSucursal: number) {
+    return this.http.get<Producto []>(this.url + '/sucursal/'+idSucursal);
+  }
 }

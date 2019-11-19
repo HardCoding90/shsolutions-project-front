@@ -10,7 +10,7 @@ import { Venta } from 'app/models/venta';
 })
 export class VentaService {
   /***Definimos la ruta del servicio a consumir */
-  url = environment.apiUrl + 'ventas';
+  url = environment.apiUrl + '/ventas';
 
   constructor( private http: HttpClient) {
 

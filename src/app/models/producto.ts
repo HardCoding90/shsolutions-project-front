@@ -7,4 +7,5 @@ export interface Producto {
     producto: string;
     referencia: string;
     valorUnidadVenta: number;
+    cantidadExistente: number;
 }
