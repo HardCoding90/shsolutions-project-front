@@ -21,6 +21,9 @@ import { OrdenProducto } from 'app/models/ordenes-productos';
 import { ProductoProveedor } from 'app/models/producto-proveedor';
 import { ProductoProveedorService } from 'app/services/producto-proveedor.service';
 import { OrdenService } from 'app/services/orden.service';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-ordenes',
@@ -224,6 +227,12 @@ export class OrdenesComponent implements OnInit {
                       showConfirmButton: false,
                       timer: 1500
                     })
+                    this.generatePdf();
+                    this.ordenForm.reset();
+                    this.ordenesProductos = [];
+                    this.productosProveedor = [];
+                    this.dataSourceProductosProveedor = new MatTableDataSource(this.productosProveedor);
+                    this.dataSourceOrdenProductos = new MatTableDataSource( this.ordenesProductos );
               },
               error => {
                   Swal.fire({
@@ -236,5 +245,62 @@ export class OrdenesComponent implements OnInit {
           );
       }
   }
+  generatePdf(){
+    let valorTotal = 0;
+    var sourceData = this.ordenesProductos;
+    var bodyData = [];
+    var dataRowHeader = [];
+    dataRowHeader.push('Nombre');
+    dataRowHeader.push('Cantidad');
+    dataRowHeader.push('Valor Unitario');
+    dataRowHeader.push('Valor total');
+    bodyData.push(dataRowHeader)
+
+  sourceData.forEach(function(sourceRow) {
+  var dataRow = [];
+
+  dataRow.push(sourceRow.producto + ' - ' + sourceRow.marca 
+  + ' - '+ sourceRow.referencia);
+  dataRow.push(sourceRow.cantidad);
+  dataRow.push(sourceRow.valorCompraUnidad);
+  dataRow.push(sourceRow.valorCompraUnidad * sourceRow.cantidad);
+  valorTotal = valorTotal + (sourceRow.valorCompraUnidad * sourceRow.cantidad);
+  bodyData.push(dataRow)
+
+});
+  
+    const documentDefinition = {
+      content: [
+        { text: 'Comprobante compra proveedor', style: 'header' },
+        { text:  new Date().toString(), style: 'anotherStyle' },
+        {
+          table: {
+            body: bodyData
+          }
+        },
+        { text: 'Total: ' + valorTotal.toString(), style: 'total' },
+      ],
+    
+      styles: {
+        header: {
+          fontSize: 22,
+          bold: true,
+          color: '#f44336',
+          margin: [5, 5] 
+        },
+        anotherStyle: {
+          fontSize: 16,
+          margin: [5, 5] 
+        },
+        total:{
+          fontSize: 19,
+          bold: true,
+          color: '#f44336',
+          margin: [5, 5] 
+        }
+      }
+       };
+    pdfMake.createPdf(documentDefinition).open();
+   }
 
 }
