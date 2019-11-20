@@ -165,7 +165,7 @@ export class VentasComponent implements OnInit {
   
     const documentDefinition = {
       content: [
-        { text: 'Factura de compra', style: 'header' },
+        { text: 'Factura de venta', style: 'header' },
         { text:  new Date().toString(), style: 'anotherStyle' },
         {
           table: {
