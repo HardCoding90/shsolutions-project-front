@@ -1,0 +1,37 @@
+Usuario: warevalo1@udi.edu.co
+Contraseña: SistemasInformacion2
+
+DigitalOcean:
+
+- Cuenta
+Usuario: warevalo1@udi.edu.co
+Contraseña: sistemasinfII
+
+- Droplet
+usuario: root
+password: sistemasinfII
+
+usuario: shsolutions
+password: sistemasinfII
+
+MySQL:
+user: shsolutions
+password: sistemasinfII
+
+mysql -u shsolutions -h 127.0.0.1 -p  -----------------> para acceder localmente y despues se ingresa la clave -------> sistemasinfII
+
+Jenkins:
+Usuario: shsolutions
+password: sistemasinfII
+
+Docker Hub: https://hub.docker.com/signup
+usuario: shsolutions
+password: sistemasinfII
+
+
+------------------------
+Configurador mysql /etc/mysql/mysql.conf.d/mysqld.cnf
+
+apiUrl: 'http://159.65.219.89:8083/api'
+
+ node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build
